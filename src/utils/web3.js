@@ -1,6 +1,6 @@
 import {
   sleep
-} from '../helper'
+} from './helper'
 import {
   Arbitrum
 } from '@/config'
@@ -105,31 +105,6 @@ export const chainChanged = async (refresh) => {
   })
 }
 
-/**
- * Is metamask unlocked
- * @returns bool
- */
-export const isUnlocked = async () => {
-  const metamask = await getEthWeb()
-  return await metamask._metamask.isUnlocked()
-}
-
-/**
- * Monitor metamask lock state
- * @param {*} refresh
- */
-export const lockStatusChanged = async (refresh) => {
-  while (true) {
-    await sleep(3)
-    if (!(await isUnlocked())) {
-      store.commit('saveMetamaskConnected', false)
-      if (!store.state.web3.account) continue
-      store.commit('web3/saveAccount', null)
-      refresh()
-      break
-    }
-  }
-}
 
 export const getBlockNum = async (chainId) => {
   const rpc = Arbitrum.rpc

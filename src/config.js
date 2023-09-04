@@ -17,3 +17,5 @@ export const Arbitrum = {
     interval: 3000
   }
 }
+
+export const CHAIN_ID = 42161
