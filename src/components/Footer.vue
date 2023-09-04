@@ -2,13 +2,22 @@
   <footer>
     <ul class="fx fx-x-center">
       <!-- 添加class:gold-active为激活状态 -->
-      <li class="gold-active"><div class="btn-menu">金蜂</div></li>
+      <li :class="$route.name === 'index' ? 'gold-active' : ''" @click="index = 0">
+        <!-- <div class="btn-menu">金蜂</div> -->
+        <router-link to="/index" class="btn-menu">金蜂</router-link>
+      </li>
       <!-- 添加class:purple-active为激活状态 -->
-      <li><div class="btn-menu">紫蜂</div></li>
+      <li :class="$route.name === 'BeePurple' ? 'purple-active' : ''" @click="index = 1">
+        <router-link to="/beePurple" class="btn-menu">紫蜂</router-link>
+      </li>
       <!-- 添加class:silver-active为激活状态 -->
-      <li><div class="btn-menu">黑蜂</div></li>
+      <li :class="$route.name === 'BeeSilver' ? 'silver-active' : ''" @click="index = 2">
+        <router-link to="/beeSilver" class="btn-menu">黑蜂</router-link>
+      </li>
       <!-- 添加class:my-active为激活状态 -->
-      <li><div class="btn-menu">我的</div></li>
+      <li :class="$route.name === 'MyNFT' ? 'my-active' : ''" @click="index = 3">
+        <router-link to="/myNFT" class="btn-menu">我的</router-link>
+      </li>
     </ul>
   </footer>
 </template>
@@ -18,7 +27,16 @@ export default {
   name: 'Footer',
   props: {
     msg: String
-  }
+  },
+  data() {
+    return {
+      index: 0
+    }
+  },
+  watch: {
+  },
+  methods: {
+  },
 }
 </script>
 
@@ -40,6 +58,7 @@ export default {
       }
       .btn-menu{
         line-height: 5.4375rem;
+        display: block;
         text-align: center;
         font-size: 1.75rem;
         font-weight: bold;
