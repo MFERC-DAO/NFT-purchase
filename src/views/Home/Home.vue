@@ -74,7 +74,7 @@ export default {
   	return {
       showMintPopUp: false,
       showBeePopUp: false,
-      showExplainPopUp: false
+      showExplainPopUp: true
     }
   }
 }

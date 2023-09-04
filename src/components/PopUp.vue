@@ -65,8 +65,13 @@ export default {
       .btn-close{
         width: 3rem;
         height: 3rem;
+        border-radius: 50%;
         background: url("@/assets/img/icon_close.png") no-repeat;
         background-size: 100%;
+        transition: all 0.15s ease;
+        &:active{
+          transform: scale(0.95);
+        }
       }
     }
     .show-main {
@@ -86,4 +91,23 @@ export default {
     transform: scale(1);
   }
 }
+
+ @media only screen and (min-width:950px) {
+   .popup-warpper{
+     .popup-cont{
+       .btn-close{
+        cursor: pointer;
+        transition: all 0.15s ease;
+         &:hover{
+           transform: scale(1.05);
+           background-color: rgba(#fff, 0.2);
+         }
+         &:active{
+           transform: scale(0.95);
+         }
+       }
+     }
+   }
+
+ }
 </style>

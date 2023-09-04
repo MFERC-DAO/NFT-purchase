@@ -202,5 +202,9 @@
        transform: scale(1.03);
        filter: brightness(130%);
      }
+		 &:active{
+		   transform: scale(1);
+		   filter: brightness(80%);
+		 }
    }
  }

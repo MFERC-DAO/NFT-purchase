@@ -22,7 +22,7 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 996;
     width: 100%;
     padding: 2.5rem;
   }
@@ -41,5 +41,19 @@ export default {
     font-size: 0.875rem;
     background: url("@/assets/img/connect_btn_bg.png") no-repeat;
     background-size: 100%;
+  }
+  @media only screen and (min-width:950px) {
+    .btn-connect{
+      cursor: pointer;
+      transition: all 0.15s ease;
+      &:hover{
+        transform: scale(1.03);
+        color: #fff;
+      }
+      &:active{
+        transform: scale(1);
+        color: #ccc;
+      }
+    }
   }
 </style>
