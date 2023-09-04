@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/views/Home.vue'
-import BeeSilver from '@/views/BeeSilver.vue'
-import MyNFT from '@/views/MyNFT.vue'
-import BeePurple from '@/views/BeePurple.vue'
+import Home from '@/views/Home/Home.vue'
+import BeeSilver from '@/views/BeeSilver/BeeSilver.vue'
+import MyNFT from '@/views/MyNFT/MyNFT.vue'
+import BeePurple from '@/views/BeePurple/BeePurple.vue'
 Vue.use(Router)
 
 const router = new Router({
