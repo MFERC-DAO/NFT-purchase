@@ -104,7 +104,7 @@ export default {
     padding: 2rem 2rem 1.5rem;
     li{
       width: 72px;
-      height: 86px;
+      height: 83px;
       margin-left: 15px;
       margin-bottom: 15px;
       background: url("@/assets/img/my_bee_border.png") no-repeat;
@@ -135,7 +135,7 @@ export default {
       }
       .img-cont{
         width: 70px;
-        height: 86px;
+        height: 83px;
         overflow: hidden;
         position: absolute;
         top: 0;

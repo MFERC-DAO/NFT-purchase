@@ -77,8 +77,13 @@ $color-m-l:rgba($color-main , 0.28);
 
 // 金色渐变色
 
+// .gold-gradient-text {
+//   background: linear-gradient(160deg,#a97c52 10%, #855d2c 20%,#dfbe6f 40% ,#efe79c 50% , #9f7f47 60%,#3c2418 62% , #ceaa5c 86%, #8d6d30 100%);
+//   -webkit-background-clip: text;
+//   -webkit-text-fill-color: transparent;
+// }
 .gold-gradient-text {
-  background: linear-gradient(160deg,#a97c52 10%, #855d2c 20%,#dfbe6f 40% ,#efe79c 50% , #9f7f47 60%,#3c2418 62% , #ceaa5c 86%, #8d6d30 100%);
+  background: linear-gradient(160deg,#b5771f 10%, #9a5c03 20%,#bf8625 40% ,#f7e773 50% , #b1841c 64%,#451d00 65% , #c28426 86%, #8d6d30 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

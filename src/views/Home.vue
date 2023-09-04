@@ -271,4 +271,19 @@ export default {
       }
     }
   }
+  @media only screen and (min-width:950px) {
+    .gold-gradient-text {
+      background: linear-gradient(160deg,#b5771f 10%, #9a5c03 30%,#bf8625 45% ,#f7e773 50% , #b1841c 55%,#451d00 56% , #c28426 86%, #8d6d30 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn-mint{
+      margin: 2.5rem auto 0;
+      cursor: pointer;
+      &:hover{
+        transform: scale(1.03);
+        filter: brightness(130%);
+      }
+    }
+  }
 </style>
