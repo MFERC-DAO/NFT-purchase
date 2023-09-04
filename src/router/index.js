@@ -1,27 +1,40 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Router from 'vue-router'
 
-Vue.use(VueRouter)
+import Home from '@/views/Home.vue'
+import BeeSilver from '@/views/BeeSilver.vue'
+import MyNFT from '@/views/MyNFT.vue'
+import BeePurple from '@/views/BeePurple.vue'
+Vue.use(Router)
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
-
-const router = new VueRouter({
-  routes
+const router = new Router({
+  mode: 'history', // 配置路由模式
+  base: __dirname, // 配置应用根路径
+  scrollBehavior: () => ({
+    y: 0
+  }),
+  routes: [
+    {
+      name: 'index',
+      path: '/index',
+      component: Home
+    }, {
+      name: 'BeeSilver',
+      path: '/beeSilver',
+      component: BeeSilver
+    }, {
+      name: 'MyNFT',
+      path: '/myNFT',
+      component: MyNFT
+    },{
+      name: 'BeePurple',
+      path: '/beePurple',
+      component: BeePurple
+    },
+    {
+      path: '*',
+      redirect: '/index'
+    }
+  ]
 })
-
 export default router
