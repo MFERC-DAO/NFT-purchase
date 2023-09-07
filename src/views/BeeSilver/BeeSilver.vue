@@ -5,6 +5,7 @@
       <section class="cont">
        <div class="bee-cont">
         <ul class="fx fx-wrap">
+          <!-- 已经售出添加class：sold-out -->
           <li v-for="item in 66">
             <div class="cover"></div>
             <div class="img-cont"><img src="@/assets/img/bee_img.jpg" alt=""></div>
@@ -14,7 +15,7 @@
         <div class="info-cont">
           <div class="choose-tips">选择你喜欢的黑蜂</div>
           <div class="num-cont fx-align gold-gradient-text"><span>限量：45</span>/66</div>
-          <div class="tips fx-align"><i class="icon-i"></i>黑蜂NFT说明书</div>
+          <div class="tips fx-align"><i class="icon-i"></i><span>黑蜂NFT说明书</span></div>
         </div>
       </section>
     </article>

@@ -70,6 +70,7 @@ export default {
         background-size: 100%;
         transition: all 0.15s ease;
         &:active{
+          background-color: rgba(#fff, 0.2);
           transform: scale(0.95);
         }
       }
@@ -103,6 +104,7 @@ export default {
            background-color: rgba(#fff, 0.2);
          }
          &:active{
+           background-color: rgba(#fff, 0.25);
            transform: scale(0.95);
          }
        }

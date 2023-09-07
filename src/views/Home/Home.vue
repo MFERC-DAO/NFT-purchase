@@ -7,7 +7,7 @@
        <div class="bee-cont"><video autoplay muted loop><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video></div>
         <div class="btn-mint"></div>
         <div class="num-cont fx-align gold-gradient-text"><span class="f-b">限量：6666</span>/6666</div>
-        <div class="tips fx-align hover" @click="showExplainPopUp=true"><i class="icon-i"></i>金蜂NFT说明书</div>
+        <div class="tips fx-align"><i class="icon-i"></i><span @click="showExplainPopUp=true">金蜂NFT说明书</span></div>
       </section>
     </article>
     <!-- mint弹层 -->

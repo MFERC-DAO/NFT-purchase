@@ -66,30 +66,32 @@
    article{
      .cont{
         transform: translateY(-45%);
-      .bee-bg{
-         width: 30rem;
-         height: 30rem;
-         &::after{
-           width: 1000px;
-           height: 1000px;
-           background: url("@/assets/img/z_bee_bg.png") no-repeat;
-           background-size: 100%;
-           left: 50%;
-           transform: translatex(-50%) translateY(-50%);
-         }
-       }
-       .tips{
-         font-size: 1rem;
-         padding-top: 10px;
-         cursor: pointer;
-         transition: all 0.15s ease;
-         &:hover{
-           text-decoration: underline;
-           color: rgba(#fff, 0.8);
-         }
-         &:active{
-           color: rgba(#fff, 0.3);
-         }
+				.bee-bg{
+					width: 30rem;
+					height: 30rem;
+					 &::after{
+						 width: 1000px;
+						 height: 1000px;
+						 background: url("@/assets/img/z_bee_bg.png") no-repeat;
+						 background-size: 100%;
+						 left: 50%;
+						 transform: translatex(-50%) translateY(-50%);
+					 }
+				 }
+				.tips{
+					padding-top: 20px;
+					span{
+					 font-size: 1.2rem;
+					 cursor: pointer;
+					 transition: all 0.15s ease;
+					 &:hover{
+						 text-decoration: underline;
+						 color: rgba(#fff, 0.8);
+					 }
+					 &:active{
+						 color: rgba(#fff, 0.3);
+					 }
+				 }
        }
      }
    }
