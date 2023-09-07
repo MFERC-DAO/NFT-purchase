@@ -78,7 +78,8 @@ export default {
       showMintPopUp: false,
       showBeePopUp: false,
       showExplainPopUp: false,
-      totalSupply: 0
+      totalSupply: 0,
+      minting: false,
     }
   },
   computed: {
@@ -105,7 +106,27 @@ export default {
       
     },
     async mint() {
+      try{
+        this.minting = true
 
+        switch(this.state) {
+          case 1: 
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+          case 4:
+            break;
+          case 5:
+            break;
+        }
+      } catch(e) {
+        
+      } finally {
+        this.minting = false
+      }
+      
     }
   },
   mounted () {
