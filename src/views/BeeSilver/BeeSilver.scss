@@ -230,9 +230,6 @@
     }
   }
   .popup-warpper.warimg-pop{
-    ::v-deep .popup-cont{
-      // top: 30%;
-    }
     .warimg-img{
       width: 13.125rem;
       height: 14.75rem;
@@ -241,6 +238,7 @@
       background-size: 100%;
     }
     h3{
+			font-size: 1.5rem;
       padding-top: 4rem;
       text-align: center;
       p{
@@ -253,8 +251,8 @@
       margin: 2.5rem auto 0;
       background: url("@/assets/img/s_card_btn.png") no-repeat;
       background-size: 100%;
+			cursor: pointer;
       transition: all 0.2s ease;
-
       &:active{
         transform: scale(0.98);
       }
@@ -263,22 +261,90 @@
       margin: 2.5rem auto 0;
     }
   }
- @media only screen and (min-width:950px) {
+@media only screen and (min-width:750px) and (max-width:1089px){
+	article{
+			 .info-cont{
+				 padding-bottom: 3rem;
+			 }
+			 .bee-cont{
+				 ul{
+					 width: 680px;
+					 padding-right: 40px;
+				 }
+				 li{
+					 width: 120px;
+					 height: 135px;
+					 cursor: pointer;
+					 margin-bottom: 0;
+					 margin-left: 30px !important;
+					 &:nth-child(7n + 5){
+					   margin-left: 106px !important;
+					 }
+					 &:hover{
+					   transform: scale(1.05);
+					   filter: brightness(150%);
+					 }
+					 &:active{
+					   transform: scale(0.98);
+					   filter: brightness(70%);
+					 }
+					 &::before,&::after{
+					   content: "";
+					  width: 63px;
+					  height: 38px;
+					 }
+					 .img-cont{
+						 width: 118px;
+						 height: 135px;
+					 }
+					 .cover{
+					   &::before,&::after{
+					     width: 63px;
+					     height: 38px;
+					   }
+					 }
+				 }
+			 }
+	  .cont{
+					.tips{
+						padding-top: 20px;
+						span{
+						 font-size: 1.2rem;
+						 cursor: pointer;
+						 transition: all 0.15s ease;
+						 &:hover{
+							 text-decoration: underline;
+							 color: rgba(#fff, 0.8);
+						 }
+						 &:active{
+							 color: rgba(#fff, 0.3);
+						 }
+					 }
+	    }
+	  }
+	}
+}
+ @media only screen and (min-width:1090px) {
+	 footer{
+		 background: none;
+	 }
    article{
 		 .info-cont{
 			 padding-bottom: 3rem;
 		 }
 		 .bee-cont{
 			 ul{
-				 width: 1020px;
+				 width: 1080px;
 				 padding-right: 40px;
 			 }
 			 li{
+				 width: 140px;
+				 height: 160px;
 				 cursor: pointer;
-				 margin-bottom: 10px;
-				 margin-left: 20px !important;
-				 &:nth-child(15n + 9){
-				   margin-left: 82px !important;
+				 margin-bottom: 0;
+				 margin-left: 30px !important;
+				 &:nth-child(11n + 7){
+				   margin-left: 118px !important;
 				 }
 				 &:hover{
 				   transform: scale(1.05);
@@ -287,6 +353,21 @@
 				 &:active{
 				   transform: scale(0.98);
 				   filter: brightness(70%);
+				 }
+				 &::before,&::after{
+				   content: "";
+				  width: 74px;
+				  height: 45px;
+				 }
+				 .img-cont{
+					 width: 138px;
+					 height: 160px;
+				 }
+				 .cover{
+				   &::before,&::after{
+				     width: 74px;
+				     height: 45px;
+				   }
 				 }
 			 }
 		 }
@@ -307,5 +388,20 @@
 				 }
        }
      }
+		 
    }
+	 .mint-bee-pop{
+		 .btn-mint{
+				transition: all 0.15s ease;
+			 cursor: pointer;
+			 &:hover{
+				 transform: scale(1.03);
+				 filter: brightness(130%);
+			 }
+			 &:active{
+				 transform: scale(1);
+				 filter: brightness(80%);
+			 }
+		 }
+	 }
  }

@@ -45,11 +45,10 @@
           <h3>售价：1.000,000 $Mferc (直接销毀）</h3>
           <dl>
             <dt>持有者权益：</dt>
-            <dd class="fx"><i class="fx-shrink"></i>参与社区提案投票</dd>
-            <dd class="fx"><i class="fx-shrink"></i>收荻社区空投福利</dd>
-            <dd class="fx"><i class="fx-shrink"></i>可增加wormhole3平台莫比社区的Credit值，提商挖矿效串（当前特有1只金色蜜蜂，可增加 34556 Credit 值)</dd>
+            <dd class="fx"><i class="fx-shrink"></i>收获社区空投福利</dd>
+            <dd class="fx"><i class="fx-shrink"></i>可增加wormhole3平台莫比社区的Credit值，提高挖矿效率</dd>
             <dd class="fx"><i class="fx-shrink"></i>可以通过交易NFT获得收益</dd>
-            <dd class="fx"><i class="fx-shrink"></i>更多惊嘉待后绥解锁</dd>
+            <dd class="fx"><i class="fx-shrink"></i>更多惊嘉待后续解锁</dd>
           </dl>
         </div>
         <div class="btn-close" @click="showExplainPopUp=false"></div>

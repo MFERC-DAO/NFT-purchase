@@ -77,7 +77,7 @@ export default {
     background: url("@/assets/img/connect_btn_bg.png") no-repeat;
     background-size: 100%;
   }
-  @media only screen and (min-width:950px) {
+  @media only screen and (min-width:750px) {
     .logo-cont{
       transition: all 0.15s ease;
       &:hover{

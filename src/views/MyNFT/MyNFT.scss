@@ -1,5 +1,8 @@
 @charset "utf-8";
  @import "@/assets/css/common.scss";
+ header{
+	 display: none;
+ }
  footer{
    background: linear-gradient(to top,#000 50%,transparent 100%);
  }
@@ -38,20 +41,22 @@
    padding: 1rem 2rem;
  }
  ul{
-   padding: 2rem 2rem 1.5rem;
-   li{
+   padding: 2rem 2rem 1rem;
+	 li{
+		 margin-left: 15px;
+		 margin-bottom: 20px;
+		 &:nth-child(4n + 1){
+		   margin-left: 0;
+		 }
+	 }
+   .bee-cont{
      width: 72px;
      height: 83px;
-     margin-left: 15px;
-     margin-bottom: 15px;
      background: url("@/assets/img/my_bee_border.png") no-repeat;
      background-size: 100%;
      position: relative;
      overflow: hidden;
      transition: all 0.15s ease;
-     &:nth-child(4n + 1){
-       margin-left: 0;
-     }
      &::before,&::after{
        content: "";
        width: 40px;
@@ -82,7 +87,6 @@
          min-height: 100%;
          object-fit: cover;
        }
- 
      }
      .cover{
        &::before,&::after{
@@ -105,6 +109,10 @@
        }
      }
    }
+	 h3{
+		 text-align: center;
+		 padding-top: 5px;
+	 }
  }
  @media only screen and (min-width:359px) and (max-width:374px) {
    ul{
@@ -127,3 +135,100 @@
      }
    }
  }
+ @media only screen and (min-width:500px){
+	 ul{
+	   li{
+	     margin-left: 25px !important;
+	   }
+	 }
+ }
+  @media only screen and (min-width:750px){
+		.myNFT{
+ 		height: 100vh;
+ 		min-height: auto;
+ 		overflow-y: auto;
+ 		background: url("@/assets/img/pc/my_bg.png") center bottom no-repeat;
+ 	}
+	header{
+		display: flex;
+		background: linear-gradient(to bottom, #000 50%, transparent 100%);
+	}
+	footer{
+		background: none;
+	}
+	article{
+		margin: 0 auto;
+		padding-top: 130px;
+		ul{
+			padding: 1rem 12px;
+			li{
+				margin-left: 12px !important;
+				.bee-cont{
+					width: 100px;
+					height: 100px;
+					background: none;
+					&::after,&:before{
+						display: none;
+					}
+					.img-cont{
+					  width: 100px;
+					  height: 100px;
+					}
+				}
+				.cover{
+					display: none;
+				}
+			} 
+		}
+		.cont-g{
+			margin-top: 60px;
+		}
+	}
+	.sub-title{
+		padding: 1rem 24px;
+	}
+	.title-cont{
+		display: none;
+	}
+	.line{
+		display: none;
+	}
+	.cont{
+		width: 50%;
+		display: inline-block;
+	}
+	}
+ @media only screen and (min-width:750px) and (max-width:1079px){
+ 	article{
+		width: 750px;
+		ul{
+			li{
+				.bee-cont{
+					width: 100px;
+					height: 100px;
+					.img-cont{
+					  width: 100px;
+					  height: 100px;
+					}
+				}
+			} 
+		}
+	}
+ }
+  @media only screen and (min-width:1090px) {
+		article{
+			width: 1000px;
+			ul{
+				li{
+					.bee-cont{
+						width: 145px;
+						height: 145px;
+						.img-cont{
+						  width: 145px;
+						  height: 145px;
+						}
+					}
+				} 
+			}
+		}
+	}
