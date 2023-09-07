@@ -5,8 +5,8 @@
       <section class="cont">
        <!-- <div class="bee-cont"></div> -->
        <div class="bee-cont"><video autoplay muted loop><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video></div>
-        <div class="btn-mint"></div>
-        <div class="num-cont fx-align gold-gradient-text"><span class="f-b">限量：6666</span>/6666</div>
+        <div class="btn-mint" @click="showMintPopUp=true"></div>
+        <div class="num-cont fx-align gold-gradient-text"><span class="f-b">{{ totalSupply }}</span>/6666</div>
         <div class="tips fx-align"><i class="icon-i"></i><span @click="showExplainPopUp=true">金蜂NFT说明书</span></div>
       </section>
     </article>
@@ -17,8 +17,8 @@
         <p>每一次MINT就像拆开一个盲盒</p>
         <p>给你一份惊喜！</p>
       </h3>
-      <div class="btn-mint btn-popup"></div>
-      <div class="btn-close"></div>
+      <div class="btn-mint btn-popup" @click="mint"></div>
+      <div class="btn-close" @click="showMintPopUp=false"></div>
     </PopUp>
     <!-- mint弹层 -->
     <PopUp :show.sync="showBeePopUp" class="mint-bee-pop">
@@ -62,6 +62,10 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PopUp from '@/components/PopUp'
+import { getTotalSupply } from '@/utils/nft'
+import { mapState } from 'vuex'
+import { Arbitrum } from '@/config'
+
 export default {
   name: 'Home',
   components: {
@@ -73,9 +77,40 @@ export default {
   	return {
       showMintPopUp: false,
       showBeePopUp: false,
-      showExplainPopUp: false
+      showExplainPopUp: false,
+      totalSupply: 0
     }
-  }
+  },
+  computed: {
+    ...mapState('web3', ['account', 'chainId', 'balance', 'allownce']),
+    ...mapState('nft', ['pendingGolden']),
+    state() {
+      if (this.chianId !== Arbitrum.id) {
+        return 1  // wrong chain
+      }
+      if (this.allownce < 1000000) {
+        return 2 // need approve
+      }
+      if (this.balance < 1000000) {
+        return 3 // insufficient balance
+      }
+      if (this.pendingGolden < 1) {
+        return 4 // no more to mint
+      }
+      return 5 // can mint
+    }
+  },
+  methods: {
+    connect() {
+      
+    },
+    async mint() {
+
+    }
+  },
+  mounted () {
+    getTotalSupply('golden').then(supply => this.totalSupply = supply);
+  },
 }
 </script>
 <style lang="scss" scoped>

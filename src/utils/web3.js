@@ -22,6 +22,7 @@ export const setupNetwork = async () => {
         chainId: `0x${id.toString(16)}`
       }]
     })
+    store.commit('web3/saveChainId', parseInt(id))
     return true
   } catch (error) {
     if (error.code === 4001) return
@@ -37,6 +38,7 @@ export const setupNetwork = async () => {
           blockExplorerUrls: [scan]
         }]
       })
+      store.commit('web3/saveChainId', parseInt(id))
       return true
     } catch (error) {
       console.log('connect wallet fail', error)

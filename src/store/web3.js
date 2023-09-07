@@ -1,9 +1,9 @@
-import Cookie from 'vue-cookies'
 
 export default {
   namespaced: true,
   state: {
-    account: Cookie.get('eth-account'),
+    account: '',
+    chainId: 0,
     allAccounts: [],
     abis: {},
     blockNum: null,
@@ -12,7 +12,9 @@ export default {
   mutations: {
     saveAccount: (state, account) => {
       state.account = account
-      Cookie.set('eth-account', account, '30d')
+    },
+    saveChainId: (state, chainId) => {
+      state.chainId = chainId
     },
     saveAllAccounts: (state, allAccounts) => {
       state.allAccounts = allAccounts

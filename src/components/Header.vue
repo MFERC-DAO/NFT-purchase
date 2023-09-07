@@ -10,6 +10,7 @@
 import { setupNetwork } from '@/utils/web3'
 import { accountChanged, getAccounts } from '@/utils/account'
 import { mapState } from 'vuex'
+import { Arbitrum } from '@/config'
 
 export default {
   name: 'Header',
@@ -17,9 +18,9 @@ export default {
     msg: String
   },
   computed: {
-    ...mapState('web3', ['account']),
+    ...mapState('web3', ['account', 'chainId']),
     showingAddress() {
-      if (this.account) {
+      if (this.account && (this.chainId == Arbitrum.id)) {
         return this.account.slice(0, 6) + '...' + this.account.slice(-6)
       }
       return 'Connect Wallet'
@@ -30,15 +31,8 @@ export default {
       window.open('https://alpha.wormhole3.io/community-detail/cd490b94c333', '__blank')
     },
     async connect() {
-      if (this.account) return;
-      try {
-        const connected = await setupNetwork()
-      } catch (e) {
-        console.log('connect wallet fail:', e);
-      } finally{
-
-      }
-    }
+      await setupNetwork()
+    },
   },
   mounted () {
     accountChanged(() => {
