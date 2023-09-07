@@ -157,46 +157,40 @@
      margin: 2.5rem auto 0;
    }
  }
- .popup-warpper.ex-pop{
-   ::v-deep .popup-cont{
-     top: 15%;
-   }
-   .ex-bg{
-     width: 28.375rem;
-     height: 48.75rem;
-     background: url("@/assets/img/explain_bg.png") no-repeat;
-     background-size: 100%;
-     margin: 0 auto;
-     h2{
-       font-size: 3rem;
-       text-align: center;
-       font-weight: bold;
-       padding-top: 4rem;
-     }
-     .info-cont{
-       padding: 2.5rem 3rem;
-       font-size: 1.3rem;
-       h3{
-         padding-bottom: 0.3125rem;
-       }
-       dd{
-         padding-top: 0.3125rem;
-         i{
-           display: inline-block;
-           width: 1.25rem;
-           height: 1.25rem;
-           background: url("@/assets/img/explain_dot.png") no-repeat;
-           background-size: 100%;
-           margin-right: 1rem;
-           margin-top: 0.3rem;
-         }
-       }
-     }
-     .btn-close{
-       margin: 2rem auto ;
-     }
-   }
- }
+  @media only screen and (min-width:600px) and (max-width:949px){
+		article .cont .bee-cont{
+			width: 70%;
+			margin: 0 auto;
+		}
+		.btn-mint{
+		  margin: -3rem auto 0;
+		  cursor: pointer;
+		  &:hover{
+		    transform: scale(1.03);
+		    filter: brightness(130%);
+		  }
+				 &:active{
+				   transform: scale(1);
+				   filter: brightness(80%);
+				 }
+		}
+		.tips{
+			padding-top: 20px;
+			span{
+			 font-size: 1.2rem;
+			 cursor: pointer;
+			 transition: all 0.15s ease;
+			 &:hover{
+				 text-decoration: underline;
+				 color: rgba(#fff, 0.8);
+			 }
+			 &:active{
+				 color: rgba(#fff, 0.3);
+			 }
+		 }
+		}
+	}
+ 
  @media only screen and (min-width:950px) {
    .gold-gradient-text {
      background: linear-gradient(160deg,#b5771f 10%, #9a5c03 30%,#bf8625 45% ,#f7e773 50% , #b1841c 55%,#451d00 56% , #c28426 86%, #8d6d30 100%);

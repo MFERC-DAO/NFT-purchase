@@ -94,7 +94,7 @@ export default {
       }
     }
   }
-  @media only screen and (min-width:950px) {
+  @media only screen and (min-width:750px) {
     footer{
       width: auto;
       top: 0;
