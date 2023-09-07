@@ -264,21 +264,26 @@
     }
   }
  @media only screen and (min-width:950px) {
+	 footer{
+		 background: none;
+	 }
    article{
 		 .info-cont{
 			 padding-bottom: 3rem;
 		 }
 		 .bee-cont{
 			 ul{
-				 width: 1020px;
+				 width: 1080px;
 				 padding-right: 40px;
 			 }
 			 li{
+				 width: 140px;
+				 height: 160px;
 				 cursor: pointer;
-				 margin-bottom: 10px;
-				 margin-left: 20px !important;
-				 &:nth-child(15n + 9){
-				   margin-left: 82px !important;
+				 margin-bottom: 0;
+				 margin-left: 30px !important;
+				 &:nth-child(11n + 7){
+				   margin-left: 118px !important;
 				 }
 				 &:hover{
 				   transform: scale(1.05);
@@ -287,6 +292,21 @@
 				 &:active{
 				   transform: scale(0.98);
 				   filter: brightness(70%);
+				 }
+				 &::before,&::after{
+				   content: "";
+				  width: 74px;
+				  height: 45px;
+				 }
+				 .img-cont{
+					 width: 138px;
+					 height: 160px;
+				 }
+				 .cover{
+				   &::before,&::after{
+				     width: 74px;
+				     height: 45px;
+				   }
 				 }
 			 }
 		 }
