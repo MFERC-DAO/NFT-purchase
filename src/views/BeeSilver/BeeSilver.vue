@@ -6,9 +6,9 @@
        <div class="bee-cont">
         <ul class="fx fx-wrap">
           <!-- 已经售出添加class：sold-out -->
-          <li v-for="item in 66">
+          <li v-for="item in 66" @click="selectedId = item;showBeePopUp = true">
             <div class="cover"></div>
-            <div class="img-cont"><img src="@/assets/img/bee_img.jpg" alt=""></div>
+            <div class="img-cont"><img :src="BaseUrl+item" alt=""></div>
           </li>
         </ul>
        </div>
@@ -27,13 +27,13 @@
           <img src="@/assets/img/bee_img.jpg" alt="">
           <div class="bee-img-bg"></div>
         </div>
-        <div class="g-num silver-gradient-text"><span>G</span><i>062</i></div>
+        <div class="g-num silver-gradient-text"><span>G</span><i>{{ selectedId }}</i></div>
       </div>
       <!-- 下面的btn-mint与h3不同时存在，
       btn-mint是mint的按钮，h3是返回的结果 -->
       <div class="btn-mint"></div>
       <h3>恭喜！您获得了#G062金蜂</h3>
-      <div class="btn-close"></div>
+      <div class="btn-close" @click="showBeePopUp=false"></div>
     </PopUp>
     <!-- 提示弹层 -->
     <PopUp :show.sync="showTipsPopUp" class="warimg-pop">
@@ -54,6 +54,8 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PopUp from '@/components/PopUp'
+import { BaseUrl } from '@/config'
+
 export default {
   name: 'BeeSilver',
   components: {
@@ -64,7 +66,9 @@ export default {
   data () {
   	return {
       showBeePopUp: false,
-      showTipsPopUp: false
+      showTipsPopUp: false,
+      selectedId: 0,
+      BaseUrl
     }
   }
 }

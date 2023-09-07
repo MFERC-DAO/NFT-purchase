@@ -18,4 +18,8 @@ export const Arbitrum = {
   }
 }
 
+
+export const MFERC = "";
+
 export const CHAIN_ID = 42161
+
