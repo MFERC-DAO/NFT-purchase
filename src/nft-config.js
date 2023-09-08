@@ -11,6 +11,8 @@ export const BaseUrl = {
   'purple': ""
 }
 
+export const BlackBeeCANBaseUri = '';
+
 export const Description = {
     'black': `MCO（Mferc Community OG）is a functional NFT based on the ERC-721 protocol issued by Mferc Community . The total number of NFTs for sale is 66. NFT holders will have the corresponding features and benefits with Mferc Community. 
     Whitelisting is required to mint. 

@@ -8,7 +8,7 @@
           <!-- 已经售出添加class：sold-out -->
           <li v-for="item in 66" @click="selectedId = item;showBeePopUp = true">
             <div class="cover"></div>
-            <div class="img-cont"><img :src="BaseUrl+item" alt=""></div>
+            <div class="img-cont"><img :src="BlackBeeCANBaseUri+item" alt=""></div>
           </li>
         </ul>
        </div>
@@ -76,7 +76,7 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PopUp from '@/components/PopUp'
-import { BaseUrl } from '@/config'
+import { BaseUrl, BlackBeeCANBaseUri } from '@/config'
 
 export default {
   name: 'BeeSilver',
@@ -91,6 +91,7 @@ export default {
       showTipsPopUp: false,
       selectedId: 0,
       BaseUrl,
+      BlackBeeCANBaseUri,
       showExplainPopUp: false
     }
   }
