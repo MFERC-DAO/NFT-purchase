@@ -62,9 +62,14 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PopUp from '@/components/PopUp'
-import { getTotalSupply } from '@/utils/nft'
+import { getTotalSupply, getPendingGoldenBeeCount, mintGoldenBee } from '@/utils/nft'
+import { approve, getApprovement } from '@/utils/asset'
 import { mapState } from 'vuex'
-import { Arbitrum } from '@/config'
+import { Arbitrum, MFERC } from '@/config'
+import { BaseUrl, BeeContracts } from '@/nft-config'
+import { ethers } from 'ethers'
+import { setupNetwork } from '@/utils/web3'
+import axios from 'axios'
 
 export default {
   name: 'Home',
@@ -79,31 +84,67 @@ export default {
       showBeePopUp: false,
       showExplainPopUp: false,
       totalSupply: 0,
+      connecting: false,
       minting: false,
+      mintedNftUri: ''
     }
   },
   computed: {
-    ...mapState('web3', ['account', 'chainId', 'balance', 'allownce']),
+    ...mapState('web3', ['account', 'chainId']),
     ...mapState('nft', ['pendingGolden']),
+    ...mapState('asset', ['mfercBalance', 'goldenAllownce']),
     state() {
       if (this.chianId !== Arbitrum.id) {
         return 1  // wrong chain
       }
-      if (this.allownce < 1000000) {
-        return 2 // need approve
-      }
-      if (this.balance < 1000000) {
-        return 3 // insufficient balance
+      if (this.mfercBalance < 1000000) {
+        return 2 // insufficient balance
       }
       if (this.pendingGolden < 1) {
-        return 4 // no more to mint
+        return 3 // no more to mint
+      }
+      if (this.goldenAllownce < 1000000) {
+        return 4 // need approve
       }
       return 5 // can mint
     }
   },
+  watch: {
+    account(newValue, oldValue) {
+      if (ethers.utils.isAddress(newValue)) {
+        this.updateUserData();
+      }
+    }
+  },
   methods: {
-    connect() {
-      
+    async connect() {
+      try{
+        this.connecting = true
+        await setupNetwork();
+      } catch (e) {
+        
+      } finally {
+        this.connecting = false
+      }
+    },
+    async updateUserData() {
+      if (!ethers.utils.isAddress(this.account)) return;
+      // get approve
+      getApprovement(this.account, MFERC, BeeContracts.golden).then(res => {
+        console.log(1, res)
+        this.$store.commit('nft/saveGoldenAllownce', res)
+      }).catch()
+      // getPendingGoldenBeeCount
+      getPendingGoldenBeeCount().then(res => {
+        if (res > 0) {
+          this.$store.commit('nft/savePendingGolden', res)
+        }
+      }).catch()
+      // get total supply
+      getTotalSupply('golden')
+      .then(supply => this.totalSupply = supply)
+      .catch();
+
     },
     async mint() {
       try{
@@ -111,14 +152,21 @@ export default {
 
         switch(this.state) {
           case 1: 
+            this.connect()
             break;
           case 2:
             break;
           case 3:
             break;
           case 4:
+            await approve(this.account, MFERC, BeeContracts.golden)
+            await this.updateUserData();
             break;
           case 5:
+            const mintedNft = await mintGoldenBee()
+            const json = await axios.get(BaseUrl.golden + mintedNft.uri);
+            this.mintedNftUri = json.image
+            this.updateUserData()
             break;
         }
       } catch(e) {
@@ -130,7 +178,7 @@ export default {
     }
   },
   mounted () {
-    getTotalSupply('golden').then(supply => this.totalSupply = supply);
+    this.updateUserData()
   },
 }
 </script>

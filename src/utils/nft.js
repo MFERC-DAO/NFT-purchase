@@ -63,6 +63,15 @@ export async function checkBlackBeeWhitelist(address) {
         }, {
             target: BeeContracts.black,
             call: [
+                'whitelistUpdateTime(address)(uint256)',
+                address
+            ],
+            returns: [
+                ['updateTime', val => val / 1]
+            ]
+        },{
+            target: BeeContracts.black,
+            call: [
                 'hasMintedNFT(address)(bool)',
                 address
             ],

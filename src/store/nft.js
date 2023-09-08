@@ -6,7 +6,8 @@ export default {
     goldens: [],
     purples: [],
     totalBurned: 0,
-    pendingGolden: 0
+    pendingGolden: 0,
+    goldenAllownce: 0
   },
   mutations: {
     saveBlacks: (state, blacks) => {
@@ -23,6 +24,9 @@ export default {
     },
     savePendingGolden: (state, pendingGolden) => {
         state.pendingGolden = pendingGolden
+    },
+    saveGoldenAllownce: (state,  goldenAllownce) => {
+      state.goldenAllownce = goldenAllownce
     }
   }
 }
