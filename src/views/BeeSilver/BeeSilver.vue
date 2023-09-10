@@ -27,12 +27,12 @@
           <img :src="'https://gateway.nutbox.app/ipfs/' + BlackUris[selectedId-1]" alt="">
           <div class="bee-img-bg"></div>
         </div>
-        <div class="g-num silver-gradient-text"><span>G</span><i>{{ selectedId }}</i></div>
+        <div class="g-num silver-gradient-text"><span>G</span><i>{{ prefixInteger(selectedId, 2) }}</i></div>
       </div>
       <!-- 下面的btn-mint与h3不同时存在，
       btn-mint是mint的按钮，h3是返回的结果 -->
       <div class="btn-mint"></div>
-      <h3>恭喜！您获得了#G062金蜂</h3>
+      <h3>恭喜！您获得了#G{{ prefixInteger(selectedId, 2) }}黑蜂</h3>
       <div class="btn-close" @click="showBeePopUp=false"></div>
     </PopUp>
     <!-- 提示弹层 -->
@@ -80,8 +80,9 @@ import { BaseUrl, BlackBeeCANBaseUri, BlackUris, BeeContracts } from '@/nft-conf
 import { MFERC } from '@/config'
 import { mapState } from 'vuex'
 import { ethers } from 'ethers'
-import { getApprovement } from '@/utils/asset'
-import { getTotalSupply, checkBlackBeeWhitelist, getMintedBlackBeeIds } from '@/utils/nft'
+import { getApprovement, approve } from '@/utils/asset'
+import { getTotalSupply, checkBlackBeeWhitelist, getMintedBlackBeeIds, mintBlackBee } from '@/utils/nft'
+import { prefixInteger } from '@/utils/helper'
 
 export default {
   name: 'BeeSilver',
@@ -139,6 +140,7 @@ export default {
     }
   },
   methods: {
+    prefixInteger,
     nftBeenMinted(index) {
       try {
         return this.mintedBlackBeeIds.indexOf(index) !== -1
@@ -179,6 +181,7 @@ export default {
     async approve() {
       try{
         this.loading = true
+        await approve(this.account, MFERC, BeeContracts.black)
       } catch(e) {
         
       } finally {
@@ -188,7 +191,7 @@ export default {
     async mint() {
       try{
         this.loading = true
-        
+        await mintBlackBee(this.selectedId);
       } catch(e) {
         
       } finally {
