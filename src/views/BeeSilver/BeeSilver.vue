@@ -27,12 +27,12 @@
           <img :src="'https://gateway.nutbox.app/ipfs/' + BlackUris[selectedId-1]" alt="">
           <div class="bee-img-bg"></div>
         </div>
-        <div class="g-num silver-gradient-text"><span>G</span><i>{{ prefixInteger(selectedId, 2) }}</i></div>
+        <div class="g-num silver-gradient-text"><span>B</span><i>{{ prefixInteger(selectedId, 2) }}</i></div>
       </div>
       <!-- 下面的btn-mint与h3不同时存在，
       btn-mint是mint的按钮，h3是返回的结果 -->
       <div class="btn-mint"></div>
-      <h3>恭喜！您获得了#G{{ prefixInteger(selectedId, 2) }}黑蜂</h3>
+      <h3>恭喜！您获得了#B{{ prefixInteger(selectedId, 2) }}黑蜂</h3>
       <div class="btn-close" @click="showBeePopUp=false"></div>
     </PopUp>
     <!-- 提示弹层 -->
