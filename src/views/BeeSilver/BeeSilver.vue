@@ -6,7 +6,7 @@
        <div class="bee-cont">
         <ul class="fx fx-wrap">
           <!-- 已经售出添加class：sold-out -->
-          <li v-for="item in 66" @click="selectedId = item;showBeePopUp = true" :class="nftBeenMinted(item - 1) ? 'sold-out' : ''">
+          <li v-for="item in 66" @click="selectedId = item;showImg=false;showBeePopUp = true" :class="nftBeenMinted(item - 1) ? 'sold-out' : ''">
             <div class="cover"></div>
             <div class="img-cont"><img :src="BlackBeeCANBaseUri + item + '.jpg'" alt=""></div>
           </li>
@@ -25,8 +25,8 @@
         <!-- <div class="light-img"></div> -->
         <div class="logo-img-cont"></div>
         <div class="bee-img">
-          <img class="img-bee" :src="'https://gateway.nutbox.app/ipfs/' + BlackUris[selectedId-1]" alt="">
-          <!-- <img class="img-def" src="@/assets/img/bee_def.jpg" alt=""> -->
+          <img class="img-bee" @load="showImg = true" :src="'https://gateway.nutbox.app/ipfs/' + BlackUris[selectedId-1]" alt="">
+          <img v-show="!showImg" class="img-def" src="@/assets/img/bee_def.jpg" alt="">
           <div class="bee-img-bg"></div>
         </div>
         <div class="g-num silver-gradient-text"><span>B</span><i>{{ prefixInteger(selectedId, 2) }}</i></div>
@@ -154,7 +154,8 @@ export default {
       totalSupply: 0,
       loading: false,
       mintBtn: '',
-      mintResult: false
+      mintResult: false,
+      showImg: false
     }
   },
   methods: {
