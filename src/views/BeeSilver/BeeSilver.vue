@@ -22,16 +22,24 @@
     <!-- mint弹层 -->
     <PopUp :show.sync="showBeePopUp" :id="selectedId" class="mint-bee-pop">
       <div class="bee-img-grp">
-        <div class="light-img"></div>
+        <!-- <div class="light-img"></div> -->
+        <div class="logo-img-cont"></div>
         <div class="bee-img">
-          <img :src="'https://gateway.nutbox.app/ipfs/' + BlackUris[selectedId-1]" alt="">
+          <img class="img-bee" :src="'https://gateway.nutbox.app/ipfs/' + BlackUris[selectedId-1]" alt="">
+          <img class="img-def" src="@/assets/img/bee_def.jpg" alt="">
           <div class="bee-img-bg"></div>
         </div>
         <div class="g-num silver-gradient-text"><span>G</span><i>{{ prefixInteger(selectedId, 2) }}</i></div>
       </div>
       <!-- 下面的btn-mint与h3不同时存在，
-      btn-mint是mint的按钮，h3是返回的结果 -->
-      <div class="btn-mint"></div>
+      btn-mint是mint的按钮，h3是返回的结果
+       添加class：disable为不可用状态-->
+      <div class="btn-mint btn-popup fx-align" @click="mint">
+        <div class="mint-text">
+          <p>1,000,000 $Mferc</p>
+          <h5>MINT</h5>
+        </div>
+      </div>
       <h3>恭喜！您获得了#G{{ prefixInteger(selectedId, 2) }}黑蜂</h3>
       <div class="btn-close" @click="showBeePopUp=false"></div>
     </PopUp>
@@ -183,7 +191,7 @@ export default {
         this.loading = true
         await approve(this.account, MFERC, BeeContracts.black)
       } catch(e) {
-        
+
       } finally {
         this.loading = false
       }
@@ -193,7 +201,7 @@ export default {
         this.loading = true
         await mintBlackBee(this.selectedId);
       } catch(e) {
-        
+
       } finally {
         this.loading = false
       }

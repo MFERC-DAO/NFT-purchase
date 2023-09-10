@@ -4,8 +4,16 @@
     <article>
       <section class="cont">
        <!-- <div class="bee-cont"></div> -->
-       <div class="bee-cont"><video autoplay muted loop><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video></div>
-        <div class="btn-mint" @click="showMintPopUp=true"></div>
+       <div class="bee-cont">
+        <video autoplay muted loop><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video>
+       </div>
+       <!-- 添加class：disable为不可用状态 -->
+        <div class="btn-mint  fx-align" @click="showMintPopUp=true">
+          <div class="mint-text">
+            <p>1,000,000 $Mferc</p>
+            <h5>MINT</h5>
+          </div>
+        </div>
         <div class="num-cont fx-align gold-gradient-text"><span class="f-b">{{ totalSupply }}</span>/6666</div>
         <div class="tips fx-align"><i class="icon-i"></i><span @click="showExplainPopUp=true">金蜂NFT说明书</span></div>
       </section>
@@ -17,13 +25,19 @@
         <p>每一次MINT就像拆开一个盲盒</p>
         <p>给你一份惊喜！</p>
       </h3>
-      <div class="btn-mint btn-popup" @click="mint"></div>
+      <div class="btn-mint disable btn-popup fx-align" @click="mint">
+        <div class="mint-text">
+          <p>1,000,000 $Mferc</p>
+          <h5>MINT</h5>
+        </div>
+      </div>
       <div class="btn-close" @click="showMintPopUp=false"></div>
     </PopUp>
     <!-- mint弹层 -->
     <PopUp :show.sync="showBeePopUp" class="mint-bee-pop">
       <div class="bee-img-grp">
-        <div class="light-img"></div>
+        <!-- <div class="light-img"></div> -->
+        <div class="logo-img-cont"></div>
         <div class="bee-img">
           <img src="@/assets/img/bee_img.jpg" alt="">
           <div class="bee-img-bg"></div>
@@ -123,7 +137,7 @@ export default {
         this.connecting = true
         await setupNetwork();
       } catch (e) {
-        
+
       } finally {
         this.connecting = false
       }
@@ -156,7 +170,7 @@ export default {
         this.minting = true
 
         switch(this.state) {
-          case 1: 
+          case 1:
             this.connect()
             break;
           case 2:
@@ -175,11 +189,11 @@ export default {
             break;
         }
       } catch(e) {
-        
+
       } finally {
         this.minting = false
       }
-      
+
     }
   },
   mounted () {

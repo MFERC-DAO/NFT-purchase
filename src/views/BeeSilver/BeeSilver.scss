@@ -135,21 +135,46 @@
       }
     }
   }
-  .btn-mint{
-    width: 15rem;
-    height: 6.25rem;
-    margin: 2.5rem auto 0;
-    background: url("@/assets/img/btn_main.png") no-repeat;
-    background-size: 100%;
-    position: relative;
-    z-index: 3;
-  }
+	.btn-mint{
+	  width: 15rem;
+	  height: 6.25rem;
+	  margin: 2.5rem auto 0;
+	  background: url("@/assets/img/btn_main.png") no-repeat;
+	  background-size: 100%;
+	  position: relative;
+	  z-index: 3;
+	  transition: all 0.15s ease;
+	  &:active{
+	    transform: scale(0.98);
+	    filter: brightness(70%);
+	  }
+		 .mint-text{
+			 text-shadow: 0 0 5px rgba(#fff, 0.5);
+			 text-align: center;
+			 color: #000;
+			 p{
+				 font-size: 0.75px;
+			 }
+			 h5{
+				 font-size: 2.5rem;
+				 font-weight: 900;
+				 line-height: 1;
+			 }
+		 }
+		 &.disable{
+			 background: url("@/assets/img/btn_main_bg_dis.png") no-repeat;
+			 background-size: 100%;
+			 .mint-text{
+				 text-shadow: 0 0 5px rgba(#fff, 0.2);
+				 color: #171717;
+			 }
+		 }
+	}
   .popup-warpper.mint-bee-pop{
     .bee-img-grp{
-      width: 21.375rem;
-      height: 29.8125rem;
+      width: 30rem;
+      height: 33rem;
       margin: 0 auto;
-      opacity: 0.8;
       background: url("@/assets/img/s_bee_card_bg.png") no-repeat;
       background-size: 100%;
       position: relative;
@@ -163,20 +188,31 @@
         right: 0.5rem;
         z-index: 5;
       }
+			.logo-img-cont{
+			  width: 3.75rem;
+			  height: 2.1875rem;
+			  background: url("@/assets/img/g_bee_logo.png") no-repeat;
+			  background-size: 100%;
+			  position: absolute;
+			  top: 2.5rem;
+			  right: 3rem;
+			  z-index: 9;
+			}
       .bee-img{
-        width: 18rem;
-        height: 18rem;
+        width: 25rem;
+        height: 25rem;
         overflow: hidden;
         position: absolute;
-        top: 5rem;
-        left: 2.75rem;
+        top: 1rem;
+        left: 4rem;
         &::after,
         &::before{
           content: "";
-          width: 1.3rem;
-          height: 1.3rem;
+          width: 1.8rem;
+          height: 1.8rem;
           position: absolute;
-          right: 0;
+          right: -1px;
+					z-index: 9;
         }
         &:before{
           top: 0;
@@ -193,6 +229,16 @@
           min-height: 100%;
           object-fit: cover;
         }
+				.img-bee{
+					position: relative;
+					z-index: 2;
+				}
+				.img-def{
+					position: absolute;
+					top: 0;
+					left: 0;
+					z-index: 0;
+				}
         .bee-img-bg{
           width: 100%;
           height: 100%;
@@ -207,8 +253,8 @@
       .g-num{
         position: absolute;
         bottom: 0;
-        left: 3rem;
-        font-size: 3.5rem;
+        left: 4rem;
+        font-size: 4.5rem;
         filter: brightness(120%);
         span{
           font-weight: 900;
@@ -261,11 +307,54 @@
       margin: 2.5rem auto 0;
     }
   }
+
+
+@media only screen and (min-width:750px){
+	article{
+		 .info-cont{
+			 padding-bottom: 3rem;
+		 }
+	  .cont{
+			.tips{
+				padding-top: 20px;
+				span{
+				 font-size: 1.2rem;
+				 cursor: pointer;
+				 transition: all 0.15s ease;
+				 &:hover{
+					 text-decoration: underline;
+					 color: rgba(#fff, 0.8);
+				 }
+				 &:active{
+					 color: rgba(#fff, 0.3);
+				 }
+			 }
+	    }
+	  }
+	}
+	.mint-bee-pop{
+	 .btn-mint{
+			transition: all 0.15s ease;
+		 cursor: pointer;
+		 &:hover{
+			 transform: scale(1.03);
+			 filter: brightness(130%);
+		 }
+		 &:active{
+			 transform: scale(1);
+			 filter: brightness(80%);
+		 }
+		 .mint-text{
+			 p{
+				 font-size: 1.2rem;
+			 }
+		 }
+	 }
+	}
+}
+
 @media only screen and (min-width:750px) and (max-width:1089px){
 	article{
-			 .info-cont{
-				 padding-bottom: 3rem;
-			 }
 			 .bee-cont{
 				 ul{
 					 width: 680px;
@@ -305,29 +394,9 @@
 					 }
 				 }
 			 }
-	  .cont{
-					.tips{
-						padding-top: 20px;
-						span{
-						 font-size: 1.2rem;
-						 cursor: pointer;
-						 transition: all 0.15s ease;
-						 &:hover{
-							 text-decoration: underline;
-							 color: rgba(#fff, 0.8);
-						 }
-						 &:active{
-							 color: rgba(#fff, 0.3);
-						 }
-					 }
-	    }
-	  }
 	}
 }
  @media only screen and (min-width:1090px) {
-	 footer{
-		 background: none;
-	 }
    article{
 		 .info-cont{
 			 padding-bottom: 3rem;
@@ -371,37 +440,6 @@
 				 }
 			 }
 		 }
-     .cont{
-				.tips{
-					padding-top: 20px;
-					span{
-					 font-size: 1.2rem;
-					 cursor: pointer;
-					 transition: all 0.15s ease;
-					 &:hover{
-						 text-decoration: underline;
-						 color: rgba(#fff, 0.8);
-					 }
-					 &:active{
-						 color: rgba(#fff, 0.3);
-					 }
-				 }
-       }
-     }
-		 
    }
-	 .mint-bee-pop{
-		 .btn-mint{
-				transition: all 0.15s ease;
-			 cursor: pointer;
-			 &:hover{
-				 transform: scale(1.03);
-				 filter: brightness(130%);
-			 }
-			 &:active{
-				 transform: scale(1);
-				 filter: brightness(80%);
-			 }
-		 }
-	 }
+	 
  }
