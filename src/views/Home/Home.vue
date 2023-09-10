@@ -48,7 +48,7 @@
             <dd class="fx"><i class="fx-shrink"></i>收获社区空投福利</dd>
             <dd class="fx"><i class="fx-shrink"></i>可增加wormhole3平台莫比社区的Credit值，提高挖矿效率</dd>
             <dd class="fx"><i class="fx-shrink"></i>可以通过交易NFT获得收益</dd>
-            <dd class="fx"><i class="fx-shrink"></i>更多惊嘉待后续解锁</dd>
+            <dd class="fx"><i class="fx-shrink"></i>更多惊喜待后续解锁</dd>
           </dl>
         </div>
         <div class="btn-close" @click="showExplainPopUp=false"></div>
