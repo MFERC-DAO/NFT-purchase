@@ -4,17 +4,19 @@
     <article>
       <section class="cont">
        <!-- <div class="bee-cont"></div> -->
-       <div class="bee-cont">
-        <video autoplay muted loop><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video>
-       </div>
-       <!-- 添加class：disable为不可用状态 -->
+       <div class="bee-cont"><video autoplay muted loop><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video></div>
         <div class="btn-mint  fx-align" @click="showMintPopUp=true">
           <div class="mint-text">
             <p>1,000,000 $Mferc</p>
             <h5>MINT</h5>
           </div>
         </div>
-        <div class="num-cont fx-align gold-gradient-text"><span class="f-b">{{ totalSupply }}</span>/6666</div>
+        <div class="num-cont fx-align gold-gradient-text">
+          <span class="f-b">{{ totalSupply }}</span>/6666
+          <p>
+            当前剩余{{ pendingGolden }}可mint
+          </p>
+        </div>
         <div class="tips fx-align"><i class="icon-i"></i><span @click="showExplainPopUp=true">金蜂NFT说明书</span></div>
       </section>
     </article>
@@ -39,12 +41,12 @@
         <!-- <div class="light-img"></div> -->
         <div class="logo-img-cont"></div>
         <div class="bee-img">
-          <img src="@/assets/img/bee_img.jpg" alt="">
+          <img :src="mintedNftUri" alt="">
           <div class="bee-img-bg"></div>
         </div>
-        <div class="g-num gold-gradient-text"><span>G</span><i>062</i></div>
+        <div class="g-num gold-gradient-text"><span>G</span><i>{{ prefixInteger(mintedId, 3) }}</i></div>
       </div>
-      <h3>恭喜！您获得了#G062金蜂</h3>
+      <h3>恭喜！您获得了#G{{ prefixInteger(mintedId, 3) }}金蜂</h3>
       <div class="btn-close"></div>
     </PopUp>
     <!-- 说明弹层 -->
@@ -55,7 +57,8 @@
           <p>代表社区共识者</p>
         </h2>
         <div class="info-cont">
-          <h3>数量：限量6666个，当前还有6613个</h3>
+          <h3>数量：限量6666个，分批次发放</h3>
+          <h3>本批次剩余：{{ pendingGolden }}个</h3>
           <h3>售价：1.000,000 $Mferc (直接销毀）</h3>
           <dl>
             <dt>持有者权益：</dt>
@@ -84,6 +87,7 @@ import { BaseUrl, BeeContracts } from '@/nft-config'
 import { ethers } from 'ethers'
 import { setupNetwork } from '@/utils/web3'
 import axios from 'axios'
+import { prefixInteger } from '@/utils/helper'
 
 export default {
   name: 'Home',
@@ -100,7 +104,8 @@ export default {
       totalSupply: 0,
       connecting: false,
       minting: false,
-      mintedNftUri: ''
+      mintedNftUri: '',
+      mintedId: 0
     }
   },
   computed: {
@@ -132,6 +137,7 @@ export default {
     }
   },
   methods: {
+    prefixInteger,
     async connect() {
       try{
         this.connecting = true
@@ -184,6 +190,7 @@ export default {
           case 5:
             const mintedNft = await mintGoldenBee()
             const json = await axios.get(BaseUrl.golden + mintedNft.uri);
+            this.mintedId = json.tokenId;
             this.mintedNftUri = json.image
             this.updateUserData()
             break;
