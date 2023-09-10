@@ -229,15 +229,11 @@
           min-height: 100%;
           object-fit: cover;
         }
-				.img-bee{
-					position: relative;
-					z-index: 2;
-				}
 				.img-def{
 					position: absolute;
 					top: 0;
 					left: 0;
-					z-index: 0;
+					z-index: 1;
 				}
         .bee-img-bg{
           width: 100%;
