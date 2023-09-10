@@ -30,7 +30,7 @@ export async function getUserHolding(address, type) {
     let balance = await aggregate(calls, Arbitrum.Multi_Config);
     balance = balance.results.transformed.balance;
     if (balance === 0) return [];
-    calls = (new Array(balance)).map((item, i) => ({
+    calls = (new Array(balance).fill(1)).map((item, i) => ({
         target: contract,
         call: [
             'tokenOfOwnerByIndex(address,uint256)(utint256)',
@@ -69,7 +69,7 @@ export async function checkBlackBeeWhitelist(address) {
             returns: [
                 ['updateTime', val => val / 1]
             ]
-        },{
+        }, {
             target: BeeContracts.black,
             call: [
                 'hasMintedNFT(address)(bool)',
@@ -77,6 +77,14 @@ export async function checkBlackBeeWhitelist(address) {
             ],
             returns: [
                 ['hasMinted']
+            ]
+        }, {
+            target: BeeContracts.black,
+            call: [
+                'whileListExpirationDay()(uint256)'
+            ],
+            returns: [
+                ['expirationDay', val => val / 1]
             ]
         }], Arbitrum.Multi_Config);
         const result = res.results.transformed;
@@ -171,7 +179,7 @@ export async function getMintedBlackBeeIds() {
     try{
         const supply = await getTotalSupply('black');
         if (supply === 0) return [];
-        const calls = (new Array(supply)).map((item, i) => ({
+        const calls = (new Array(supply).fill(1)).map((item, i) => ({
             target: BeeContracts.black,
             call: [
                 'tokenByIndex(uint256)(uint256)',
@@ -182,7 +190,7 @@ export async function getMintedBlackBeeIds() {
             ]
         }))
         const mintedTokens = await aggregate(calls, Arbitrum.Multi_Config);
-        return mintedTokens.results.transformed
+        return Object.values(mintedTokens.results.transformed)
     }catch(e) {
         console.log('Get minted black bee ids fail:', e);
         return {};

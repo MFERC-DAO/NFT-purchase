@@ -91,10 +91,11 @@ export default {
   },
   computed: {
     ...mapState('web3', ['account', 'chainId']),
-    ...mapState('nft', ['pendingGolden']),
-    ...mapState('asset', ['mfercBalance', 'goldenAllownce']),
+    ...mapState('nft', ['pendingGolden', 'goldenAllownce']),
+    ...mapState('asset', ['mfercBalance']),
     state() {
-      if (this.chianId !== Arbitrum.id) {
+      console.log('chain id', this.chainId, this.goldenAllownce)
+      if (this.chainId != Arbitrum.id) {
         return 1  // wrong chain
       }
       if (this.mfercBalance < 1000000) {
@@ -136,13 +137,17 @@ export default {
       }).catch()
       // getPendingGoldenBeeCount
       getPendingGoldenBeeCount().then(res => {
+        console.log(2, res)
         if (res > 0) {
           this.$store.commit('nft/savePendingGolden', res)
         }
       }).catch()
       // get total supply
       getTotalSupply('golden')
-      .then(supply => this.totalSupply = supply)
+      .then(supply => {
+        console.log(3, supply)
+        this.totalSupply = supply
+      })
       .catch();
 
     },

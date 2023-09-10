@@ -16,11 +16,12 @@ export async function getBalance(address, token) {
                 address
             ],
             returns: [
-                ['balance', val => val.toString() / 1e18]
+                [
+                    ['balance', val => val.toString() / 1e18]
+                ]
             ]
-        }])
+        }], Arbitrum.Multi_Config)
         balance = balance.results.transformed.balance;
-        store.state.asset.saveMfercBalance(balance);
         return balance;
     } catch (e) {
         console.log('get asset balance fail:', e)
@@ -39,9 +40,12 @@ export async function getApprovement(address, token, spender) {
                     address,
                     spender
                 ],
-                returns: ['allowance', val => val.toString() / 1e18]
+                returns: [
+                    ['allowance', val => val.toString() / 1e18]
+                ]
             }
         ]
+
         const res = await aggregate(calls, Arbitrum.Multi_Config);
         const approvement = res.results.transformed.allowance;
         return approvement;

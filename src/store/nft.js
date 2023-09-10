@@ -7,7 +7,11 @@ export default {
     purples: [],
     totalBurned: 0,
     pendingGolden: 0,
-    goldenAllownce: 0
+    goldenAllownce: 0,
+    blackAllownce: 0,
+    blackWhitelistOk: false,
+    hasMintedBlack: false,
+    mintedBlackBeeIds: []
   },
   mutations: {
     saveBlacks: (state, blacks) => {
@@ -27,6 +31,18 @@ export default {
     },
     saveGoldenAllownce: (state,  goldenAllownce) => {
       state.goldenAllownce = goldenAllownce
+    },
+    saveBlackAllownce: (state,  blackAllownce) => {
+      state.blackAllownce = blackAllownce
+    },
+    saveBlackWhitelistOk: (state, blackWhitelistOk) => {
+      state.blackWhitelistOk = blackWhitelistOk
+    },
+    saveHasMintedBlack: (state, hasMintedBlack) => {
+      state.hasMintedBlack = hasMintedBlack
+    },
+    saveMintedBlackBeeIds: (state, mintedBlackBeeIds) => {
+      state.mintedBlackBeeIds = mintedBlackBeeIds
     }
   }
 }

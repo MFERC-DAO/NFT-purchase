@@ -6,9 +6,9 @@
        <div class="bee-cont">
         <ul class="fx fx-wrap">
           <!-- 已经售出添加class：sold-out -->
-          <li v-for="item in 66" @click="selectedId = item;showBeePopUp = true">
+          <li v-for="item in 66" @click="selectedId = item;showBeePopUp = true" :class="nftBeenMinted(item - 1) ? 'sold-out' : ''">
             <div class="cover"></div>
-            <div class="img-cont"><img :src="BlackBeeCANBaseUri+item" alt=""></div>
+            <div class="img-cont"><img :src="BlackBeeCANBaseUri+item + '.jpg'" alt=""></div>
           </li>
         </ul>
        </div>
@@ -20,11 +20,11 @@
       </section>
     </article>
     <!-- mint弹层 -->
-    <PopUp :show.sync="showBeePopUp" class="mint-bee-pop">
+    <PopUp :show.sync="showBeePopUp" :id="selectedId" class="mint-bee-pop">
       <div class="bee-img-grp">
         <div class="light-img"></div>
         <div class="bee-img">
-          <img src="@/assets/img/bee_img.jpg" alt="">
+          <img :src="'https://gateway.nutbox.app/ipfs/' + BlackUris[selectedId-1]" alt="">
           <div class="bee-img-bg"></div>
         </div>
         <div class="g-num silver-gradient-text"><span>G</span><i>{{ selectedId }}</i></div>
@@ -76,7 +76,12 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PopUp from '@/components/PopUp'
-import { BaseUrl, BlackBeeCANBaseUri } from '@/config'
+import { BaseUrl, BlackBeeCANBaseUri, BlackUris, BeeContracts } from '@/nft-config'
+import { MFERC } from '@/config'
+import { mapState } from 'vuex'
+import { ethers } from 'ethers'
+import { getApprovement } from '@/utils/asset'
+import { getTotalSupply, checkBlackBeeWhitelist, getMintedBlackBeeIds } from '@/utils/nft'
 
 export default {
   name: 'BeeSilver',
@@ -85,16 +90,115 @@ export default {
     Footer,
     PopUp
   },
+  computed: {
+    ...mapState('web3', ['account', 'chainId']),
+    ...mapState('nft', ['blackAllownce', 'hasMintedBlack', 'blackWhitelistOk', 'mintedBlackBeeIds']),
+    ...mapState('asset', ['mfercBalance']),
+    state() {
+      console.log('chain id', this.chainId, this.goldenAllownce)
+      if (this.chainId != Arbitrum.id) {
+        return 1  // wrong chain
+      }
+      if (this.totalSupply >= 66) {
+        return 2 // no more to mint
+      }
+      if (this.hasMintedBlack) {
+        return 3 // i have mint a black bee
+      }
+      if (!this.blackWhitelistOk) {
+        return 4 // not in white list or expired
+      }
+      if (this.mfercBalance < 20000000) {
+        return 5 // insufficient balance
+      }
+      if (this.blackAllownce < 20000000) {
+        return 6 // need approve
+      }
+      return 7 // can mint
+    }
+  },
+  watch: {
+    account(newValue, oldValue) {
+      if (ethers.utils.isAddress(newValue)) {
+        this.updateInfo()
+      }
+    }
+  },
   data () {
   	return {
       showBeePopUp: false,
       showTipsPopUp: false,
       selectedId: 0,
+      BlackUris,
       BaseUrl,
       BlackBeeCANBaseUri,
-      showExplainPopUp: false
+      showExplainPopUp: false,
+      picBaseUrl: 'https://gateway.nutbox.app/ipfs/',
+      totalSupply: 0,
+      loading: false
     }
-  }
+  },
+  methods: {
+    nftBeenMinted(index) {
+      try {
+        return this.mintedBlackBeeIds.indexOf(index) !== -1
+      } catch (e) {
+        return false
+      }
+    },
+    updateInfo() {
+      if (!ethers.utils.isAddress(this.account)) return;
+      // get approve
+      getApprovement(this.account, MFERC, BeeContracts.black).then(res => {
+        this.$store.commit('nft/saveBlackAllownce', res)
+      }).catch()
+      // getBlack bee white list
+      checkBlackBeeWhitelist(this.account).then(res => {
+        const { inWhiteList, updateTime, hasMinted, expirationDay } = res
+        this.$store.commit('nft/saveBlackWhitelistOk', inWhiteList && (new Date().getTime() - updateTime < expirationDay));
+        this.$store.commit('nft/saveHasMintedBlack', hasMinted)
+      })
+      // get total supply
+      getTotalSupply('black').then(supply => {
+        this.totalSupply = supply
+      })
+
+      // getMintedBlackBeeIds
+      getMintedBlackBeeIds().then(ids => {
+        this.$store.commit('nft/saveMintedBlackBeeIds', ids)
+      })
+    },
+    async btnClick() {
+      if (this.state === 6) {
+        await this.approve();
+      }
+      if (this.state === 7) {
+        await this.mint();
+      }
+    },
+    async approve() {
+      try{
+        this.loading = true
+      } catch(e) {
+        
+      } finally {
+        this.loading = false
+      }
+    },
+    async mint() {
+      try{
+        this.loading = true
+        
+      } catch(e) {
+        
+      } finally {
+        this.loading = false
+      }
+    }
+  },
+  mounted () {
+    this.updateInfo();
+  },
 }
 </script>
 <style lang="scss" scoped>
