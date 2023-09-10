@@ -8,25 +8,25 @@
           <!-- 已经售出添加class：sold-out -->
           <li v-for="item in 66" @click="selectedId = item;showBeePopUp = true" :class="nftBeenMinted(item - 1) ? 'sold-out' : ''">
             <div class="cover"></div>
-            <div class="img-cont"><img :src="BlackBeeCANBaseUri+item + '.jpg'" alt=""></div>
+            <div class="img-cont"><img :src="BlackBeeCANBaseUri + item + '.jpg'" alt=""></div>
           </li>
         </ul>
        </div>
         <div class="info-cont">
           <div class="choose-tips">选择你喜欢的黑蜂</div>
           <div class="num-cont fx-align gold-gradient-text"><span>限量：{{ prefixInteger(totalSupply, 2) }}</span>/66</div>
-          <div class="tips fx-align"><i class="icon-i"></i><span>黑蜂NFT说明书</span></div>
+          <div class="tips fx-align" @click="showExplainPopUp=true"><i class="icon-i"></i><span>黑蜂NFT说明书</span></div>
         </div>
       </section>
     </article>
     <!-- mint弹层 -->
-    <PopUp :show.sync="showBeePopUp" :id="selectedId" class="mint-bee-pop">
+    <PopUp :show.sync="showBeePopUp" class="mint-bee-pop">
       <div class="bee-img-grp">
         <!-- <div class="light-img"></div> -->
         <div class="logo-img-cont"></div>
         <div class="bee-img">
           <img class="img-bee" :src="'https://gateway.nutbox.app/ipfs/' + BlackUris[selectedId-1]" alt="">
-          <img class="img-def" src="@/assets/img/bee_def.jpg" alt="">
+          <!-- <img class="img-def" src="@/assets/img/bee_def.jpg" alt=""> -->
           <div class="bee-img-bg"></div>
         </div>
         <div class="g-num silver-gradient-text"><span>B</span><i>{{ prefixInteger(selectedId, 2) }}</i></div>
@@ -34,14 +34,16 @@
       <!-- 下面的btn-mint与h3不同时存在，
       btn-mint是mint的按钮，h3是返回的结果
        添加class：disable为不可用状态-->
-      <div class="btn-mint btn-popup fx-align">
+      <div v-if="nftBeenMinted(selectedId - 1)"></div>
+      <div v-else-if="!mintResult " class="btn-mint btn-popup fx-align" :class="(state == 2 || state == 3 || state == 5) ? 'disable' : ''"
+          @click="btnClick">
         <div class="mint-text">
-          <p>1,000,000 $Mferc</p>
-          <h5>MINT</h5>
+          <p>20,000,000 $Mferc</p>
+          <h5>{{ mintBtn }}</h5>
         </div>
       </div>
-      <h3>恭喜！您获得了#B{{ prefixInteger(selectedId, 2) }}黑蜂</h3>
-      <div class="btn-close" @click="showBeePopUp=false"></div>
+      <h3 v-else>恭喜！您获得了#B{{ prefixInteger(selectedId, 2) }}黑蜂</h3>
+      <div class="btn-close" @click="showBeePopUp=false;mintResult=false"></div>
     </PopUp>
     <!-- 提示弹层 -->
     <PopUp :show.sync="showTipsPopUp" class="warimg-pop">
@@ -51,8 +53,8 @@
         <p>蜜蜂NFT的资格。</p>
         <p>如有疑问，请联系社区治理工会</p>
       </h3>
-      <div class="btn-img"></div>
-      <div class="btn-close"></div>
+      <div class="btn-img" @click="showTipsPopUp=false"></div>
+      <div class="btn-close" @click="showTipsPopUp=false"></div>
     </PopUp>
     <!-- 说明弹层 -->
     <PopUp :show.sync="showExplainPopUp" class="ex-pop">
@@ -85,7 +87,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PopUp from '@/components/PopUp'
 import { BaseUrl, BlackBeeCANBaseUri, BlackUris, BeeContracts } from '@/nft-config'
-import { MFERC } from '@/config'
+import { MFERC, Arbitrum } from '@/config'
 import { mapState } from 'vuex'
 import { ethers } from 'ethers'
 import { getApprovement, approve } from '@/utils/asset'
@@ -104,25 +106,31 @@ export default {
     ...mapState('nft', ['blackAllownce', 'hasMintedBlack', 'blackWhitelistOk', 'mintedBlackBeeIds']),
     ...mapState('asset', ['mfercBalance']),
     state() {
-      console.log('chain id', this.chainId, this.goldenAllownce)
       if (this.chainId != Arbitrum.id) {
+        this.mintBtn = 'Connect'
         return 1  // wrong chain
       }
       if (this.totalSupply >= 66) {
+        this.mintBtn = 'Sold Out'
         return 2 // no more to mint
       }
       if (this.hasMintedBlack) {
+        this.mintBtn = 'Minted'
         return 3 // i have mint a black bee
       }
       if (!this.blackWhitelistOk) {
+        this.mintBtn = "Mint"
         return 4 // not in white list or expired
       }
       if (this.mfercBalance < 20000000) {
+        this.mintBtn = "Mint"
         return 5 // insufficient balance
       }
       if (this.blackAllownce < 20000000) {
+        this.mintBtn = 'Approve'
         return 6 // need approve
       }
+      this.mintBtn = 'Mint'
       return 7 // can mint
     }
   },
@@ -144,7 +152,9 @@ export default {
       showExplainPopUp: false,
       picBaseUrl: 'https://gateway.nutbox.app/ipfs/',
       totalSupply: 0,
-      loading: false
+      loading: false,
+      mintBtn: '',
+      mintResult: false
     }
   },
   methods: {
@@ -156,6 +166,17 @@ export default {
         return false
       }
     },
+    async connect() {
+      if (this.connecting) return;
+      try{
+        this.connecting = true
+        await setupNetwork();
+      } catch (e) {
+
+      } finally {
+        this.connecting = false
+      }
+    },
     updateInfo() {
       if (!ethers.utils.isAddress(this.account)) return;
       // get approve
@@ -165,20 +186,28 @@ export default {
       // getBlack bee white list
       checkBlackBeeWhitelist(this.account).then(res => {
         const { inWhiteList, updateTime, hasMinted, expirationDay } = res
-        this.$store.commit('nft/saveBlackWhitelistOk', inWhiteList && (new Date().getTime() - updateTime < expirationDay));
+        this.$store.commit('nft/saveBlackWhitelistOk', inWhiteList && ((new Date().getTime() / 1000) - updateTime < expirationDay));
         this.$store.commit('nft/saveHasMintedBlack', hasMinted)
-      })
+      }).catch()
       // get total supply
       getTotalSupply('black').then(supply => {
         this.totalSupply = supply
-      })
+      }).catch()
 
       // getMintedBlackBeeIds
       getMintedBlackBeeIds().then(ids => {
         this.$store.commit('nft/saveMintedBlackBeeIds', ids)
-      })
+      }).catch()
     },
     async btnClick() {
+      if (this.loading) return;
+      if (this.state === 4) {
+        this.showBeePopUp = false;
+        this.showTipsPopUp = true;
+      }
+      if (this.state === 1) {
+        await this.connect()
+      }
       if (this.state === 6) {
         await this.approve();
       }
@@ -189,9 +218,10 @@ export default {
     async approve() {
       try{
         this.loading = true
-        await approve(this.account, MFERC, BeeContracts.black)
+        await approve(this.account, MFERC, BeeContracts.black);
+        await this.updateInfo();
       } catch(e) {
-
+        console.log('approve fail:', e)
       } finally {
         this.loading = false
       }
@@ -200,8 +230,10 @@ export default {
       try{
         this.loading = true
         await mintBlackBee(this.selectedId);
+        await this.updateInfo();
+        this.mintResult = true;
       } catch(e) {
-
+        console.log('mint fail:', e)
       } finally {
         this.loading = false
       }

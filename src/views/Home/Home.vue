@@ -5,7 +5,7 @@
       <section class="cont">
        <!-- <div class="bee-cont"></div> -->
        <div class="bee-cont"><video autoplay muted loop><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video></div>
-        <div class="btn-mint  fx-align" @click="showMintPopUp=true">
+        <div class="btn-mint fx-align" @click="showMintPopUp=true">
           <div class="mint-text">
             <p>1,000,000 $Mferc</p>
             <h5>MINT</h5>
@@ -13,6 +13,8 @@
         </div>
         <div class="num-cont fx-align gold-gradient-text">
           <span class="f-b">{{ totalSupply }}</span>/6666
+        </div>
+        <div class="fx-align gold-gradient-text">
           <p>
             当前剩余{{ pendingGolden }}可mint
           </p>
@@ -27,10 +29,11 @@
         <p>每一次MINT就像拆开一个盲盒</p>
         <p>给你一份惊喜！</p>
       </h3>
-      <div class="btn-mint disable btn-popup fx-align" @click="mint">
+      <div class="btn-mint btn-popup fx-align" :class="(state === 2 || state === 3) ? 'disable' : ''"
+         @click="mint">
         <div class="mint-text">
           <p>1,000,000 $Mferc</p>
-          <h5>MINT</h5>
+          <h5>{{ mintBtn }}</h5>
         </div>
       </div>
       <div class="btn-close" @click="showMintPopUp=false"></div>
@@ -47,7 +50,7 @@
         <div class="g-num gold-gradient-text"><span>G</span><i>{{ prefixInteger(mintedId, 3) }}</i></div>
       </div>
       <h3>恭喜！您获得了#G{{ prefixInteger(mintedId, 3) }}金蜂</h3>
-      <div class="btn-close"></div>
+      <div class="btn-close" @click="showBeePopUp=false"></div>
     </PopUp>
     <!-- 说明弹层 -->
     <PopUp :show.sync="showExplainPopUp" class="ex-pop">
@@ -105,7 +108,8 @@ export default {
       connecting: false,
       minting: false,
       mintedNftUri: '',
-      mintedId: 0
+      mintedId: 0,
+      mintBtn: ''
     }
   },
   computed: {
@@ -113,19 +117,23 @@ export default {
     ...mapState('nft', ['pendingGolden', 'goldenAllownce']),
     ...mapState('asset', ['mfercBalance']),
     state() {
-      console.log('chain id', this.chainId, this.goldenAllownce)
       if (this.chainId != Arbitrum.id) {
+        this.mintBtn = 'Connect'
         return 1  // wrong chain
       }
       if (this.mfercBalance < 1000000) {
+        this.mintBtn = 'Mint'
         return 2 // insufficient balance
       }
       if (this.pendingGolden < 1) {
+        this.mintBtn = 'Mint'
         return 3 // no more to mint
       }
       if (this.goldenAllownce < 1000000) {
+        this.mintBtn = 'Approve'
         return 4 // need approve
       }
+      this.mintBtn = 'Mint'
       return 5 // can mint
     }
   },
@@ -152,12 +160,10 @@ export default {
       if (!ethers.utils.isAddress(this.account)) return;
       // get approve
       getApprovement(this.account, MFERC, BeeContracts.golden).then(res => {
-        console.log(1, res)
         this.$store.commit('nft/saveGoldenAllownce', res)
       }).catch()
       // getPendingGoldenBeeCount
       getPendingGoldenBeeCount().then(res => {
-        console.log(2, res)
         if (res > 0) {
           this.$store.commit('nft/savePendingGolden', res)
         }
@@ -165,16 +171,14 @@ export default {
       // get total supply
       getTotalSupply('golden')
       .then(supply => {
-        console.log(3, supply)
         this.totalSupply = supply
       })
       .catch();
-
     },
     async mint() {
       try{
+        if (this.minting) return;
         this.minting = true
-
         switch(this.state) {
           case 1:
             this.connect()
@@ -190,13 +194,16 @@ export default {
           case 5:
             const mintedNft = await mintGoldenBee()
             const json = await axios.get(BaseUrl.golden + mintedNft.uri);
-            this.mintedId = json.tokenId;
-            this.mintedNftUri = json.image
+            console.log(42, json)
+            this.mintedId = mintedNft.tokenId;
+            this.mintedNftUri = json.data.image
             this.updateUserData()
+            this.showMintPopUp = false
+            this.showBeePopUp = true;
             break;
         }
       } catch(e) {
-
+        console.log('mint error:', e)
       } finally {
         this.minting = false
       }

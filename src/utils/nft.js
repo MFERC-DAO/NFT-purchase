@@ -13,39 +13,44 @@ import axios from 'axios';
  * @param {*} type NFT type: black, golden, purple
  */
 export async function getUserHolding(address, type) {
-    let contract = BeeContracts[type];
-    if (!contract || ethers.utils.isAddress(address)) return [];
-    let calls = [
-        {
+    try {
+        let contract = BeeContracts[type];
+        if (!contract || !ethers.utils.isAddress(address)) return [];
+        let calls = [
+            {
+                target: contract,
+                call: [
+                    'balanceOf(address)(uint256)',
+                    address
+                ],
+                returns: [
+                    ['balance', val => val / 1]
+                ]
+            }
+        ]
+        let balance = await aggregate(calls, Arbitrum.Multi_Config);
+        balance = balance.results.transformed.balance;
+        if (balance === 0) return [];
+        calls = (new Array(balance).fill(1)).map((item, i) => ({
             target: contract,
             call: [
-                'balanceOf(address)(uint256)',
-                address
+                'tokenOfOwnerByIndex(address,uint256)(uint256)',
+                address,
+                i
             ],
             returns: [
-                ['balance', val => val / 1]
+                [
+                    i, val => val / 1
+                ]
             ]
-        }
-    ]
-    let balance = await aggregate(calls, Arbitrum.Multi_Config);
-    balance = balance.results.transformed.balance;
-    if (balance === 0) return [];
-    calls = (new Array(balance).fill(1)).map((item, i) => ({
-        target: contract,
-        call: [
-            'tokenOfOwnerByIndex(address,uint256)(utint256)',
-            address,
-            i
-        ],
-        returns: [
-            [
-                i, val => val / 1
-            ]
-        ]
-    }));
-    let ids = await aggregate(calls, Arbitrum.Multi_Config)
-    ids = Object.values(ids.results.transformed)
-    return ids;
+        }));
+        let ids = await aggregate(calls, Arbitrum.Multi_Config)
+        ids = Object.values(ids.results.transformed)
+        return ids;
+    }catch(e) {
+        console.log('get user holding fail:', e)
+        return []
+    }       
 }
 
 export async function checkBlackBeeWhitelist(address) {
@@ -217,6 +222,7 @@ export async function mintBlackBee(tokenId) {
     const metamask = await getEthWeb();
     const provider = new ethers.providers.Web3Provider(metamask);
     let contract = new ethers.Contract(BeeContracts.black, abi, provider);
+    contract = contract.connect(provider.getSigner())
 
     const tx = await contract.mintNFT(tokenId);
     await waitForTx(provider, tx.hash);
@@ -232,11 +238,38 @@ export async function mintGoldenBee() {
                 "outputs": [],
                 "stateMutability": "nonpayable",
                 "type": "function"
+              },
+              {
+                "anonymous": false,
+                "inputs": [
+                  {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                  },
+                  {
+                    "indexed": true,
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                  },
+                  {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "tokenUri",
+                    "type": "string"
+                  }
+                ],
+                "name": "Minted",
+                "type": "event"
               }];
               
               const metamask = await getEthWeb();
               const provider = new ethers.providers.Web3Provider(metamask);
-              let contract = new ethers.Contract(BeeContracts.black, abi, provider);
+              let contract = new ethers.Contract(BeeContracts.golden, abi, provider);
+              contract = contract.connect(provider.getSigner())
+
               contract.on("Minted", (owner, tokenId, uri) => {
                 if (owner.toLowerCase() == store.state.web3.account.toLowerCase()) {
                     contract.removeAllListeners('Minted');

@@ -11,7 +11,10 @@ export default {
     blackAllownce: 0,
     blackWhitelistOk: false,
     hasMintedBlack: false,
-    mintedBlackBeeIds: []
+    mintedBlackBeeIds: [],
+    myBlackIds: [],
+    myGoldenIds: [],
+    myGoldenUris: {}
   },
   mutations: {
     saveBlacks: (state, blacks) => {
@@ -43,6 +46,15 @@ export default {
     },
     saveMintedBlackBeeIds: (state, mintedBlackBeeIds) => {
       state.mintedBlackBeeIds = mintedBlackBeeIds
-    }
+    },
+    saveMyBlackIds: (state, myBlackIds) => {
+      state.myBlackIds = myBlackIds
+    },
+    saveMyGoldenIds: (state, myGoldenIds) => {
+      state.myGoldenIds = myGoldenIds
+    },
+     saveMyGoldenUris: (state, myGoldenUris) => {
+      state.myGoldenUris = myGoldenUris
+     }
   }
 }
