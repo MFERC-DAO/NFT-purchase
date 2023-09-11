@@ -25,6 +25,7 @@ export const setupNetwork = async () => {
     store.commit('web3/saveChainId', parseInt(id))
     return true
   } catch (error) {
+    console.log('connect fail1:', error)
     if (error.code === 4001) return
     if (error.code === -32002) return
     try {
