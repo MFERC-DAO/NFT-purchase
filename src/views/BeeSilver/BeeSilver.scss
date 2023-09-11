@@ -83,7 +83,7 @@
             width: 53px;
             height: 30px;
             position: absolute;
-            bottom: -2px;
+            bottom: -1px;
             z-index: 3;
           }
           &::before{
@@ -201,7 +201,7 @@
       .bee-img{
         width: 25rem;
         height: 25rem;
-        overflow: hidden;
+        // overflow: hidden;
         position: absolute;
         top: 1rem;
         left: 4rem;
@@ -215,12 +215,12 @@
 					z-index: 9;
         }
         &:before{
-          top: 0;
+          top: -1px;
           background: url("@/assets/img/s_bee_card_border_up.png") no-repeat;
           background-size: 100%;
         }
         &::after{
-          bottom: 0;
+          bottom: -1px;
           background: url("@/assets/img/s_bee_card_border_down.png") no-repeat;
           background-size: 100%;
         }
