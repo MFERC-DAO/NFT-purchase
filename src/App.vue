@@ -24,7 +24,9 @@ export default {
     }
   },
   mounted () {
-    setupNetwork().catch();
+    setupNetwork().catch(e => {
+      console.error('connect fail:', e)
+    });
     chainChanged().catch();
     this.timeinterval = setInterval(() => {
       if (ethers.utils.isAddress(this.account) && ethers.utils.isAddress(MFERC)) {
