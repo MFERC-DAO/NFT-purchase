@@ -93,6 +93,7 @@ import { ethers } from 'ethers'
 import { getApprovement, approve } from '@/utils/asset'
 import { getTotalSupply, checkBlackBeeWhitelist, getMintedBlackBeeIds, mintBlackBee } from '@/utils/nft'
 import { prefixInteger } from '@/utils/helper'
+import { setupNetwork } from '@/utils/web3'
 
 export default {
   name: 'BeeSilver',
@@ -155,7 +156,8 @@ export default {
       loading: false,
       mintBtn: '',
       mintResult: false,
-      showImg: false
+      showImg: false,
+      connecting: false
     }
   },
   methods: {
