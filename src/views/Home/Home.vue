@@ -4,7 +4,7 @@
     <article>
       <section class="cont">
        <!-- <div class="bee-cont"></div> -->
-       <div class="bee-cont"><video autoplay muted loop><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video></div>
+       <div class="bee-cont"><video autoplay muted loop playsinline><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video></div>
         <div class="btn-mint fx-align" @click="showMintPopUp=true">
           <div class="mint-text">
             <p>1,000,000 $Mferc</p>
