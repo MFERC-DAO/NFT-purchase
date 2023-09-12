@@ -145,8 +145,9 @@ $color-m-l:rgba($color-main , 0.28);
 	z-index: 15;
 }
 .btn-loading{
-	width: 2.5rem;
-	height: 2.5rem;
+	width: 1.75rem;
+	height: 1.75rem;
 	background: url("@/assets/img/loading.gif") center center no-repeat;
 	background-size: 100%;
+	margin-right: 0.625rem;
 }

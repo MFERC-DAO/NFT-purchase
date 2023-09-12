@@ -38,11 +38,13 @@
       <div v-if="nftBeenMinted(selectedId - 1)"></div>
       <button v-else-if="!mintResult " class="btn-mint btn-popup fx-align" :class="(state == 2 || state == 3 || state == 5) ? 'disable' : ''"
           @click="btnClick">
-       <div class="mint-text">
+        <div class="mint-text">
           <p>20,000,000 $Mferc</p>
-          <h5>{{ mintBtn }}</h5>
+          <div class="fx-align">
+            <div class="btn-loading"></div>
+            <h5>{{ mintBtn }}</h5>
+          </div>
         </div>
-        <div class="btn-loading"></div>
       </button>
       <h3 v-else>恭喜！您获得了#B{{ prefixInteger(selectedId, 2) }}黑蜂</h3>
       <div class="btn-close" @click="showBeePopUp=false;mintResult=false"></div>

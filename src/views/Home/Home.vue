@@ -8,9 +8,11 @@
         <button class="btn-mint fx-align" @click="showMintPopUp=true">
           <div class="mint-text">
             <p>1,000,000 $Mferc</p>
-            <h5>MINT</h5>
+            <div class="fx-align">
+              <div class="btn-loading"></div>
+              <h5>MINT</h5>
+            </div>
           </div>
-          <div class="btn-loading"></div>
         </button>
         <div class="num-cont fx-align gold-gradient-text">
           <span class="f-b">{{ totalSupply }}</span>/6666
@@ -34,9 +36,11 @@
          @click="mint">
         <div class="mint-text">
           <p>1,000,000 $Mferc</p>
-          <h5>{{ mintBtn }}</h5>
+          <div class="fx-align">
+            <div class="btn-loading"></div>
+            <h6>{{ mintBtn }}</h6>
+          </div>
         </div>
-        <div class="btn-loading"></div>
       </button>
       <div class="btn-close" @click="showMintPopUp=false"></div>
     </PopUp>
