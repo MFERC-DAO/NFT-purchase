@@ -670,7 +670,10 @@ input [type='button'] {
     -moz-transition: all 0.2s ease;
     -ms-transition: all 0.2s ease;
 }
-
+button{
+	outline: none;
+	border: none;
+}
 .auto-wrap {
     word-wrap: break-word;
     white-space: normal;

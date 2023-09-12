@@ -25,7 +25,7 @@
         <!-- <div class="light-img"></div> -->
         <div class="logo-img-cont"></div>
         <div class="bee-img">
-          <div class="bee-loading-img"></div>
+          <div v-show="!showImg" class="bee-loading-img"></div>
           <img class="img-bee" @load="showImg = true" :src="'https://gateway.nutbox.app/ipfs/' + BlackUris[selectedId-1]" alt="">
           <img v-show="!showImg" class="img-def" src="@/assets/img/bee_def.jpg" alt="">
           <div class="bee-img-bg"></div>
@@ -36,13 +36,14 @@
       btn-mint是mint的按钮，h3是返回的结果
        添加class：disable为不可用状态-->
       <div v-if="nftBeenMinted(selectedId - 1)"></div>
-      <div v-else-if="!mintResult " class="btn-mint btn-popup fx-align" :class="(state == 2 || state == 3 || state == 5) ? 'disable' : ''"
+      <button v-else-if="!mintResult " class="btn-mint btn-popup fx-align" :class="(state == 2 || state == 3 || state == 5) ? 'disable' : ''"
           @click="btnClick">
-        <div class="mint-text">
+       <div class="mint-text">
           <p>20,000,000 $Mferc</p>
           <h5>{{ mintBtn }}</h5>
         </div>
-      </div>
+        <div class="btn-loading"></div>
+      </button>
       <h3 v-else>恭喜！您获得了#B{{ prefixInteger(selectedId, 2) }}黑蜂</h3>
       <div class="btn-close" @click="showBeePopUp=false;mintResult=false"></div>
     </PopUp>

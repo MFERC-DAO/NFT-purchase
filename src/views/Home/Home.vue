@@ -5,12 +5,13 @@
       <section class="cont">
        <!-- <div class="bee-cont"></div> -->
        <div class="bee-cont"><video autoplay muted loop playsinline><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video></div>
-        <div class="btn-mint fx-align" @click="showMintPopUp=true">
+        <button class="btn-mint fx-align" @click="showMintPopUp=true">
           <div class="mint-text">
             <p>1,000,000 $Mferc</p>
             <h5>MINT</h5>
           </div>
-        </div>
+          <div class="btn-loading"></div>
+        </button>
         <div class="num-cont fx-align gold-gradient-text">
           <span class="f-b">{{ totalSupply }}</span>/6666
         </div>
@@ -29,13 +30,14 @@
         <p>每一次MINT就像拆开一个盲盒</p>
         <p>给你一份惊喜！</p>
       </h3>
-      <div class="btn-mint btn-popup fx-align" :class="(state === 2 || state === 3) ? 'disable' : ''"
+      <button class="btn-mint btn-popup fx-align" :class="(state === 2 || state === 3) ? 'disable' : ''"
          @click="mint">
         <div class="mint-text">
           <p>1,000,000 $Mferc</p>
           <h5>{{ mintBtn }}</h5>
         </div>
-      </div>
+        <div class="btn-loading"></div>
+      </button>
       <div class="btn-close" @click="showMintPopUp=false"></div>
     </PopUp>
     <!-- mint弹层 -->

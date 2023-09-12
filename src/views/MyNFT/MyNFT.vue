@@ -44,13 +44,6 @@
           <li>
             <div class="img-def"></div>
           </li>
-          <li v-for="item of 10">
-            <div class="bee-cont">
-              <div class="cover"></div>
-              <div class="img-cont"><img class="img-bee" src="@/assets/img/bee_def.jpg" alt=""></div>
-            </div>
-            <h3>#G{{ prefixInteger(id, 3) }}</h3>
-          </li>
           <li v-for="id of myGoldenIds">
             <div class="bee-cont">
               <div class="cover"></div>
@@ -82,6 +75,7 @@
         <div class="bee-img">
           <div class="bee-loading-img"></div>
           <img class="img-bee" src="@/assets/img/bee_def.jpg" alt="">
+          <!-- <img v-show="!showImg" class="img-def" src="@/assets/img/bee_def.jpg" alt=""> -->
           <div class="bee-img-bg"></div>
         </div>
         <div class="g-num gold-gradient-text"><span>G</span><i>0033</i></div>
