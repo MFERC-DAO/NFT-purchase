@@ -8,6 +8,7 @@ $color-bg: #000;
 $color-main: #00E789;
 $color-sub: #f09a0b;
 $color-white:#ffffff;
+$color-red: #ff0000;
 $color-border: rgba($color-font,0.5);
 
 $color-b-d: rgba($color-font,0.9);
@@ -46,6 +47,9 @@ $color-m-l:rgba($color-main , 0.28);
 }
 .c-m{
 	color: $color-main;
+}
+.c-r{
+  color: $color-red;
 }
 .c-sub{
 	color: $color-sub;
@@ -150,4 +154,8 @@ $color-m-l:rgba($color-main , 0.28);
 	background: url("@/assets/img/loading.gif") center center no-repeat;
 	background-size: 100%;
 	margin-right: 0.625rem;
+}
+
+.text-center {
+  text-align: center;
 }

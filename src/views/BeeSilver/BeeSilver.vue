@@ -37,16 +37,26 @@
        添加class：disable为不可用状态-->
       <div v-if="nftBeenMinted(selectedId - 1)"></div>
       <button v-else-if="!mintResult " class="btn-mint btn-popup fx-align" :class="(state == 2 || state == 3 || state == 5) ? 'disable' : ''"
-          @click="btnClick">
+        :disabled="loading || connecting || state == 2 || state == 3 || state == 5"  
+        @click="btnClick">
         <div class="mint-text">
           <p>20,000,000 $Mferc</p>
           <div class="fx-align">
-            <div class="btn-loading"></div>
+            <div class="btn-loading" v-show="loading || connecting"></div>
             <h5>{{ mintBtn }}</h5>
           </div>
         </div>
       </button>
       <h3 v-else>恭喜！您获得了#B{{ prefixInteger(selectedId, 2) }}黑蜂</h3>
+      <p v-show="state===2" class="c-r text-center">
+        黑色蜜蜂已经出售了
+      </p>
+      <p v-show="state===3" class="c-r text-center">
+        您已经mint了一个黑蜂
+      </p>
+      <p v-show="state===5" class="c-r text-center">
+        您的余额不足
+      </p>
       <div class="btn-close" @click="showBeePopUp=false;mintResult=false"></div>
     </PopUp>
     <!-- 提示弹层 -->

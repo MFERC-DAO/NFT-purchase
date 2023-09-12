@@ -9,7 +9,6 @@
           <div class="mint-text">
             <p>1,000,000 $Mferc</p>
             <div class="fx-align">
-              <div class="btn-loading"></div>
               <h5>MINT</h5>
             </div>
           </div>
@@ -33,15 +32,22 @@
         <p>给你一份惊喜！</p>
       </h3>
       <button class="btn-mint btn-popup fx-align" :class="(state === 2 || state === 3) ? 'disable' : ''"
+        :disabled="minting || state === 2 || state === 3"
          @click="mint">
         <div class="mint-text">
           <p>1,000,000 $Mferc</p>
           <div class="fx-align">
-            <div class="btn-loading"></div>
+            <div class="btn-loading" v-show="minting"></div>
             <h6>{{ mintBtn }}</h6>
           </div>
         </div>
       </button>
+      <p v-show="state===2" class="c-r text-center">
+        您的余额不足
+      </p>
+      <p v-show="state===3" class="c-r text-center">
+        当前没有金色蜜蜂可以mint
+      </p>
       <div class="btn-close" @click="showMintPopUp=false"></div>
     </PopUp>
     <!-- mint弹层 -->
@@ -127,6 +133,7 @@ export default {
         this.mintBtn = 'Connect'
         return 1  // wrong chain
       }
+      console.log(23 ,this.mfercBalance)
       if (this.mfercBalance < 1000000) {
         this.mintBtn = 'Mint'
         return 2 // insufficient balance

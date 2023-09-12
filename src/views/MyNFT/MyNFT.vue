@@ -12,10 +12,10 @@
         <ul class="fx fx-wrap">
           <!-- 占位图，没有时显示 -->
           <li>
-            <div class="img-def"></div>
+            <div class="img-def" v-show="myBlackIds.length === 0"></div>
           </li>
           <li v-for="id of myBlackIds">
-            <div class="bee-cont">
+            <div class="bee-cont" @click="selectedBlackId = id; showBBeePopUp=true">
               <div class="cover"></div>
               <div class="img-cont"><img :src="BlackBeeCANBaseUri + id + '.jpg'" alt=""></div>
             </div>
@@ -42,10 +42,10 @@
         <ul class="fx fx-wrap">
           <!-- 占位图，没有时显示 -->
           <li>
-            <div class="img-def"></div>
+            <div class="img-def" v-show="myGoldenIds.length === 0"></div>
           </li>
           <li v-for="id of myGoldenIds">
-            <div class="bee-cont">
+            <div class="bee-cont" @click="selectedGoldenId=id;showGBeePopUp=true">
               <div class="cover"></div>
               <div class="img-cont"><img :src="myGoldenUris[id]" alt=""></div>
             </div>
@@ -59,12 +59,11 @@
       <div class="bee-img-grp">
         <div class="logo-img-cont"></div>
         <div class="bee-img">
-          <div class="bee-loading-img"></div>
-          <img class="img-bee" src="@/assets/img/bee_def.jpg" alt="">
+          <img class="img-bee" :src="BlackBeeCANBaseUri + selectedBlackId + '.jpg'" alt="">
           <!-- <img v-show="!showImg" class="img-def" src="@/assets/img/bee_def.jpg" alt=""> -->
           <div class="bee-img-bg"></div>
         </div>
-        <div class="g-num silver-gradient-text"><span>B</span><i>0003</i></div>
+        <div class="g-num silver-gradient-text"><span>B</span><i>{{ prefixInteger(selectedBlackId, 2) }}</i></div>
       </div>
       <div class="btn-close" @click="showBBeePopUp=false"></div>
     </PopUp>
@@ -73,12 +72,11 @@
       <div class="bee-img-grp">
         <div class="logo-img-cont"></div>
         <div class="bee-img">
-          <div class="bee-loading-img"></div>
-          <img class="img-bee" src="@/assets/img/bee_def.jpg" alt="">
+          <img class="img-bee" :src="myGoldenUris[selectedGoldenId]" alt="">
           <!-- <img v-show="!showImg" class="img-def" src="@/assets/img/bee_def.jpg" alt=""> -->
           <div class="bee-img-bg"></div>
         </div>
-        <div class="g-num gold-gradient-text"><span>G</span><i>0033</i></div>
+        <div class="g-num gold-gradient-text"><span>G</span><i>{{ prefixInteger(selectedGoldenId, 3) }}</i></div>
       </div>
       <div class="btn-close" @click="showGBeePopUp=false"></div>
     </PopUp>
@@ -113,7 +111,9 @@ export default {
   	return {
       showBBeePopUp: false,
       showGBeePopUp: false,
-      BlackBeeCANBaseUri
+      BlackBeeCANBaseUri,
+      selectedBlackId: 0,
+      selectedGoldenId: 0
     }
   },
   watch: {

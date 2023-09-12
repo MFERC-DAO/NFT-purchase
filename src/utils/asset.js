@@ -17,12 +17,12 @@ export async function getBalance(address, token) {
             ],
             returns: [
                 [
-                    ['balance', val => val.toString() / 1e18]
+                    ['balance']
                 ]
             ]
         }], Arbitrum.Multi_Config)
         balance = balance.results.transformed.balance;
-        return balance;
+        return balance.toString() / 1e18;
     } catch (e) {
         console.log('get asset balance fail:', e)
         return 0;
