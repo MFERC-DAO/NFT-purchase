@@ -25,6 +25,7 @@
         <!-- <div class="light-img"></div> -->
         <div class="logo-img-cont"></div>
         <div class="bee-img">
+          <div class="bee-loading-img"></div>
           <img class="img-bee" @load="showImg = true" :src="'https://gateway.nutbox.app/ipfs/' + BlackUris[selectedId-1]" alt="">
           <img v-show="!showImg" class="img-def" src="@/assets/img/bee_def.jpg" alt="">
           <div class="bee-img-bg"></div>

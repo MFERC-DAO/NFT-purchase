@@ -7,9 +7,13 @@
         <h5>{{ account ? (account.slice(0, 4) + '...' + account.slice(-4)) : '' }}</h5>
         <div class="line"></div>
       </div>
-      <div class="cont">
+      <div class="bee-grp-cont">
         <h3 class="sub-title">我的黑色蜜蜂</h3>
         <ul class="fx fx-wrap">
+          <!-- 占位图，没有时显示 -->
+          <li>
+            <div class="img-def"></div>
+          </li>
           <li v-for="id of myBlackIds">
             <div class="bee-cont">
               <div class="cover"></div>
@@ -20,7 +24,7 @@
         </ul>
       </div>
       <!-- <div class="line"></div>
-      <div class="cont">
+      <div class="bee-grp-cont">
         <h3 class="sub-title">我的紫色蜜蜂</h3>
         <ul class="fx fx-wrap">
           <li v-for="item in 2">
@@ -36,6 +40,17 @@
       <div class="cont-g">
         <h3 class="sub-title">我的金色蜜蜂</h3>
         <ul class="fx fx-wrap">
+          <!-- 占位图，没有时显示 -->
+          <li>
+            <div class="img-def"></div>
+          </li>
+          <li v-for="item of 10">
+            <div class="bee-cont">
+              <div class="cover"></div>
+              <div class="img-cont"><img class="img-bee" src="@/assets/img/bee_def.jpg" alt=""></div>
+            </div>
+            <h3>#G{{ prefixInteger(id, 3) }}</h3>
+          </li>
           <li v-for="id of myGoldenIds">
             <div class="bee-cont">
               <div class="cover"></div>
@@ -46,6 +61,33 @@
         </ul>
       </div>
     </article>
+    <!-- 黑蜂 -->
+    <PopUp :show.sync="showBBeePopUp" class="mint-bee-pop b-bee">
+      <div class="bee-img-grp">
+        <div class="logo-img-cont"></div>
+        <div class="bee-img">
+          <div class="bee-loading-img"></div>
+          <img class="img-bee" src="@/assets/img/bee_def.jpg" alt="">
+          <!-- <img v-show="!showImg" class="img-def" src="@/assets/img/bee_def.jpg" alt=""> -->
+          <div class="bee-img-bg"></div>
+        </div>
+        <div class="g-num silver-gradient-text"><span>B</span><i>0003</i></div>
+      </div>
+      <div class="btn-close" @click="showBBeePopUp=false"></div>
+    </PopUp>
+    <!-- 金蜂 -->
+    <PopUp :show.sync="showGBeePopUp" class="mint-bee-pop g-bee">
+      <div class="bee-img-grp">
+        <div class="logo-img-cont"></div>
+        <div class="bee-img">
+          <div class="bee-loading-img"></div>
+          <img class="img-bee" src="@/assets/img/bee_def.jpg" alt="">
+          <div class="bee-img-bg"></div>
+        </div>
+        <div class="g-num gold-gradient-text"><span>G</span><i>0033</i></div>
+      </div>
+      <div class="btn-close" @click="showGBeePopUp=false"></div>
+    </PopUp>
     <Footer></Footer>
   </div>
 </template>
@@ -75,8 +117,8 @@ export default {
   },
   data () {
   	return {
-      showBeePopUp: false,
-      showTipsPopUp: false,
+      showBBeePopUp: false,
+      showGBeePopUp: false,
       BlackBeeCANBaseUri
     }
   },

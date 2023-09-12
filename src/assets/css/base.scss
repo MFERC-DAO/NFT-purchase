@@ -693,3 +693,9 @@ input [type='button'] {
 	  font-size: 14px; 
 	}
 }
+
+@media screen and (max-height: 650px) {
+   article .cont{
+		 padding-bottom: 100px;
+   }
+ }

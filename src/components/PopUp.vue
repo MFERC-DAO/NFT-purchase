@@ -2,8 +2,6 @@
   <div
     :class="[show && 'show-pop']"
     class="popup-warpper"
-    @touchmove="touchmoveEvent"
-    @mousewheel="touchmoveEvent"
     @click.stop="maskClick">
     <div class="popup-bg"></div>
     <div class="popup-cont" :class="[show && 'show-main']" @click.stop>
@@ -11,7 +9,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: 'PopUp',
@@ -59,7 +56,7 @@ export default {
     }
     .popup-cont{
       position: absolute;
-      top: 20%;
+      top: 15%;
       left: 0;
       width: 100%;
       .btn-close{
@@ -110,6 +107,12 @@ export default {
        }
      }
    }
-
  }
+ @media screen and (max-height: 650px) {
+    .popup-warpper .popup-cont{
+ 		 height: 75vh;
+ 		 overflow: auto;
+     padding-bottom: 20px;
+    }
+  }
 </style>
