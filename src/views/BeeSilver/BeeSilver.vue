@@ -75,7 +75,7 @@
       <div class="ex-bg">
         <h2>
           <p>黑色蜜蜂</p>
-          <p>代表社区共识者</p>
+          <p>社区特殊贡献者</p>
         </h2>
         <div class="info-cont">
           <h3>数量：限量66个，当前还有{{ 66 - totalSupply }}个</h3>

@@ -59,9 +59,9 @@
           <img :src="mintedNftUri" alt="">
           <div class="bee-img-bg"></div>
         </div>
-        <div class="g-num gold-gradient-text"><span>G</span><i>{{ prefixInteger(mintedId, 3) }}</i></div>
+        <div class="g-num gold-gradient-text"><span>G</span><i>{{ prefixInteger(mintedId, 4) }}</i></div>
       </div>
-      <h3>恭喜！您获得了#G{{ prefixInteger(mintedId, 3) }}金蜂</h3>
+      <h3>恭喜！您获得了#G{{ prefixInteger(mintedId, 4) }}金蜂</h3>
       <div class="btn-close" @click="showBeePopUp=false"></div>
     </PopUp>
     <!-- 说明弹层 -->

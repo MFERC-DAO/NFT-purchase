@@ -49,7 +49,7 @@
               <div class="cover"></div>
               <div class="img-cont"><img :src="myGoldenUris[id]" alt=""></div>
             </div>
-            <h3>#G{{ prefixInteger(id, 3) }}</h3>
+            <h3>#G{{ prefixInteger(id, 4) }}</h3>
           </li>
         </ul>
       </div>
@@ -76,7 +76,7 @@
           <!-- <img v-show="!showImg" class="img-def" src="@/assets/img/bee_def.jpg" alt=""> -->
           <div class="bee-img-bg"></div>
         </div>
-        <div class="g-num gold-gradient-text"><span>G</span><i>{{ prefixInteger(selectedGoldenId, 3) }}</i></div>
+        <div class="g-num gold-gradient-text"><span>G</span><i>{{ prefixInteger(selectedGoldenId, 4) }}</i></div>
       </div>
       <div class="btn-close" @click="showGBeePopUp=false"></div>
     </PopUp>
