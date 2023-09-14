@@ -14,7 +14,7 @@
        </div>
         <div class="info-cont">
           <div class="choose-tips">选择你喜欢的黑蜂</div>
-          <div class="num-cont fx-align gold-gradient-text"><span>限量：{{ prefixInteger(totalSupply, 2) }}</span>/66</div>
+          <div class="num-cont fx-align gold-gradient-text"><span>{{ prefixInteger(totalSupply, 2) }}</span>/66</div>
           <div class="tips fx-align" @click="showExplainPopUp=true"><i class="icon-i"></i><span>黑蜂NFT说明书</span></div>
         </div>
       </section>
