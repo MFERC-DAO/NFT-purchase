@@ -35,7 +35,7 @@
       <!-- 下面的btn-mint与h3不同时存在，
       btn-mint是mint的按钮，h3是返回的结果
        添加class：disable为不可用状态-->
-      <div v-if="nftBeenMinted(selectedId - 1)"></div>
+      <div v-if="nftBeenMinted(selectedId)"></div>
       <button v-else-if="!mintResult " class="btn-mint btn-popup fx-align" :class="(state == 2 || state == 3 || state == 5) ? 'disable' : ''"
         :disabled="loading || connecting || state == 2 || state == 3 || state == 5"  
         @click="btnClick">
@@ -48,7 +48,7 @@
         </div>
       </button>
       <h3 v-else>恭喜！您获得了#B{{ prefixInteger(selectedId, 2) }}黑蜂</h3>
-      <p v-show="state===2" class="c-r text-center">
+      <p v-show="nftBeenMinted(selectedId)" class="c-r text-center">
         黑色蜜蜂已经出售了
       </p>
       <p v-show="state===3" class="c-r text-center">
