@@ -6,7 +6,7 @@
        <div class="bee-cont">
         <ul class="fx fx-wrap">
           <!-- 已经售出添加class：sold-out -->
-          <li v-for="item in 66" @click="selectedId = item;showImg=false;showBeePopUp = true" :class="nftBeenMinted(item - 1) ? 'sold-out' : ''">
+          <li v-for="item in 66" @click="selectedId = item;showImg=false;showBeePopUp = true" :class="nftBeenMinted(item) ? 'sold-out' : ''">
             <div class="cover"></div>
             <div class="img-cont"><img :src="BlackBeeCANBaseUri + item + '.jpg'" alt=""></div>
           </li>
