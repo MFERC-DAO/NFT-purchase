@@ -239,6 +239,10 @@ export default {
         await this.updateInfo();
       } catch(e) {
         console.log('approve fail:', e)
+        this.$store.commit('setAlert', {
+          title: "授权失败",
+          content: e
+        });
       } finally {
         this.loading = false
       }
@@ -251,6 +255,10 @@ export default {
         this.mintResult = true;
       } catch(e) {
         console.log('mint fail:', e)
+        this.$store.commit('setAlert', {
+          title: "交易失败",
+          content: e
+        });
       } finally {
         this.loading = false
       }

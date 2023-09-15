@@ -5,7 +5,7 @@
       <section class="cont">
         <div class="bee-bg fx-align">敬请期待</div>
         <div class="btn-mint">MINT</div>
-        <div class="num-cont fx-align"><span class="f-b">限量：0</span>/666</div>
+        <div class="num-cont fx-align"><span class="f-b">0</span>/666</div>
         <!-- <div class="tips fx-align"><i class="icon-i"></i><span>紫蜂NFT说明书</span></div> -->
       </section>
     </article>

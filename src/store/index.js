@@ -8,10 +8,21 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    showAlertPop: false,
+    alertTitle: '',
+    alertContent: ''
   },
   getters: {
   },
   mutations: {
+    setAlert: (state, alert) => {
+      state.showAlertPop = true;
+      state.alertTitle = alert.title;
+      state.alertContent = alert.content;
+    },
+    closeAlert: (state) => {
+      state.showAlertPop = false;
+    }
   },
   actions: {
   },

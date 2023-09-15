@@ -3,6 +3,12 @@
     <transition name="fade" mode="out-in">
       <router-view ></router-view>
     </transition>
+    <AlertPop :show.sync="showAlertPop">
+      <template v-slot:title>
+        <div>{{ alertTitle }}</div>
+      </template>
+      <div>{{ alertContent }}</div>
+    </AlertPop>
   </div>
 </template>
 
@@ -12,11 +18,16 @@ import { mapState } from 'vuex';
 import { getBalance } from '@/utils/asset'
 import { ethers } from 'ethers';
 import { MFERC } from './config';
+import AlertPop from '@/components/AlertPop'
 
 export default {
   name: 'App',
   computed: {
-    ...mapState('web3', ['account'])
+    ...mapState('web3', ['account']),
+    ...mapState(['showAlertPop', 'alertTitle', 'alertContent'])
+  },
+  components: {
+    AlertPop,
   },
   data() {
     return {

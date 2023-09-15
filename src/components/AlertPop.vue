@@ -14,7 +14,7 @@
           <slot/>
         </div>
       </div>
-      <div class="btn-close"></div>
+      <div class="btn-close" @click="maskClick"></div>
     </div>
   </div>
 </template>
@@ -31,14 +31,23 @@ export default {
       default: true
     }
   },
+  watch: {
+    '$store.state.showAlertPop'(newValue, oldValue) {
+      if (newValue) {
+        setTimeout(() => {
+          this.$store.commit('closeAlert')
+        }, 3000);
+      }
+    }
+  },
   methods: {
     touchmoveEvent (e) {
       this.preventBoo && e.preventDefault()
     },
     maskClick () {
-      this.$emit('update:show', false)
+      this.$store.commit('closeAlert')
     }
-  }
+  },
 }
 </script>
 
