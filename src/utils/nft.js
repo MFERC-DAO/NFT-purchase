@@ -271,6 +271,10 @@ export async function mintGoldenBee() {
               contract = contract.connect(provider.getSigner())
 
               contract.on("Minted", (owner, tokenId, uri) => {
+                store.commit('setAlert', {
+                    title: 'console',
+                    content: `${owner}, ${store.state.web3.account}, ${tokenId}, ${uri}`
+                })
                 if (owner.toLowerCase() == store.state.web3.account.toLowerCase()) {
                     contract.removeAllListeners('Minted');
                     resolve({tokenId, uri})
