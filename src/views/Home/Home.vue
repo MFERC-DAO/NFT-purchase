@@ -88,6 +88,12 @@
         <div class="btn-close" @click="showExplainPopUp=false"></div>
       </div>
     </PopUp>
+    <AlertPop :show.sync="showAlertPop">
+      <template v-slot:title>
+        <div>我是标题</div>
+      </template>
+      <div>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</div>
+    </AlertPop>
     <Footer></Footer>
   </div>
 </template>
@@ -96,6 +102,7 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PopUp from '@/components/PopUp'
+import AlertPop from '@/components/AlertPop'
 import { getTotalSupply, getPendingGoldenBeeCount, mintGoldenBee } from '@/utils/nft'
 import { approve, getApprovement } from '@/utils/asset'
 import { mapState } from 'vuex'
@@ -111,13 +118,15 @@ export default {
   components: {
     Header,
     Footer,
-    PopUp
+    PopUp,
+    AlertPop
   },
   data () {
   	return {
       showMintPopUp: false,
       showBeePopUp: false,
       showExplainPopUp: false,
+      showAlertPop: true,
       totalSupply: 0,
       connecting: false,
       minting: false,

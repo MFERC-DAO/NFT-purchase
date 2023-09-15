@@ -44,13 +44,6 @@
           <li>
             <div class="img-def" v-show="myGoldenIds.length === 0"></div>
           </li>
-          <!-- <li v-for="item of 10">
-            <div class="bee-cont" @click="selectedGoldenId=id;showGBeePopUp=true">
-              <div class="cover"></div>
-              <div class="img-cont"><img src="@/assets/img/bee_def.jpg" alt=""></div>
-            </div>
-            <h3>#G0026</h3>
-          </li> -->
           <li v-for="id of myGoldenIds">
             <div class="bee-cont" @click="selectedGoldenId=id;showGBeePopUp=true">
               <div class="cover"></div>
