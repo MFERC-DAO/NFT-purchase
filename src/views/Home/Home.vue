@@ -4,8 +4,8 @@
     <article>
       <section class="cont">
        <div class="bee-cont fx-align">
-         <video autoplay muted loop playsinline><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video>
-         <div class="video-bg"></div>
+         <video autoplay muted loop playsinline id="video"><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video>
+         <div class="video-bg" v-show="!loaded"></div>
        </div>
         <button class="btn-mint fx-align" @click="showMintPopUp=true">
           <div class="mint-text">
@@ -88,12 +88,6 @@
         <div class="btn-close" @click="showExplainPopUp=false"></div>
       </div>
     </PopUp>
-    <AlertPop :show.sync="showAlertPop">
-      <template v-slot:title>
-        <div>我是标题</div>
-      </template>
-      <div>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</div>
-    </AlertPop>
     <Footer></Footer>
   </div>
 </template>
@@ -102,7 +96,6 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PopUp from '@/components/PopUp'
-import AlertPop from '@/components/AlertPop'
 import { getTotalSupply, getPendingGoldenBeeCount, mintGoldenBee } from '@/utils/nft'
 import { approve, getApprovement } from '@/utils/asset'
 import { mapState } from 'vuex'
@@ -118,21 +111,21 @@ export default {
   components: {
     Header,
     Footer,
-    PopUp,
-    AlertPop
+    PopUp
   },
   data () {
   	return {
+      loaded: false,
       showMintPopUp: false,
       showBeePopUp: false,
       showExplainPopUp: false,
-      showAlertPop: true,
       totalSupply: 0,
       connecting: false,
       minting: false,
       mintedNftUri: '',
       mintedId: 0,
-      mintBtn: ''
+      mintBtn: '',
+      beeVideo: null
     }
   },
   computed: {
@@ -228,6 +221,11 @@ export default {
         }
       } catch(e) {
         console.log('mint error:', e)
+
+        this.$store.commit('setAlert', {
+          title: "交易失败",
+          content: e
+        });
       } finally {
         this.minting = false
       }
@@ -236,6 +234,10 @@ export default {
   },
   mounted () {
     this.updateUserData()
+    this.beeVideo = document.getElementById('video');
+    this.beeVideo.ondurationchange= () => {
+      this.loaded = true
+    }
   },
 }
 </script>

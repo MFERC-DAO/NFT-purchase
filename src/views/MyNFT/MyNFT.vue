@@ -4,7 +4,7 @@
     <article>
       <div class="title-cont">
         <h1>我的</h1>
-        <h5>{{ account ? (account.slice(0, 4) + '...' + account.slice(-4)) : '' }}</h5>
+        <h5>{{ account ? (account.slice(0, 8) + '...' + account.slice(-8)) : '' }}</h5>
         <div class="line"></div>
       </div>
       <div class="bee-grp-cont">
@@ -23,19 +23,6 @@
           </li>
         </ul>
       </div>
-      <!-- <div class="line"></div>
-      <div class="bee-grp-cont">
-        <h3 class="sub-title">我的紫色蜜蜂</h3>
-        <ul class="fx fx-wrap">
-          <li v-for="item in 2">
-            <div class="bee-cont">
-              <div class="cover"></div>
-              <div class="img-cont"><img src="@/assets/img/bee_img.jpg" alt=""></div>
-            </div>
-            <h3>#P045</h3>
-          </li>
-        </ul>
-      </div> -->
       <div class="line"></div>
       <div class="cont-g">
         <h3 class="sub-title">我的金色蜜蜂</h3>
