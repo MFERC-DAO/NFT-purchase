@@ -137,7 +137,6 @@ export default {
         this.mintBtn = 'Connect'
         return 1  // wrong chain
       }
-      console.log(23 ,this.mfercBalance)
       if (this.mfercBalance < 1000000) {
         this.mintBtn = 'Mint'
         return 2 // insufficient balance
@@ -221,7 +220,6 @@ export default {
         }
       } catch(e) {
         console.log('mint error:', e)
-
         this.$store.commit('setAlert', {
           title: "交易失败",
           content: e
