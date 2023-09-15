@@ -11,8 +11,8 @@
         <h3 class="sub-title">我的黑色蜜蜂</h3>
         <ul class="fx fx-wrap">
           <!-- 占位图，没有时显示 -->
-          <li>
-            <div class="img-def" v-show="myBlackIds.length === 0"></div>
+          <li v-show="myBlackIds.length === 0">
+            <div class="img-def"></div>
           </li>
           <li v-for="id of myBlackIds">
             <div class="bee-cont" @click="selectedBlackId = id; showBBeePopUp=true">
@@ -41,8 +41,8 @@
         <h3 class="sub-title">我的金色蜜蜂</h3>
         <ul class="fx fx-wrap">
           <!-- 占位图，没有时显示 -->
-          <li>
-            <div class="img-def" v-show="myGoldenIds.length === 0"></div>
+          <li v-show="myGoldenIds.length === 0">
+            <div class="img-def"></div>
           </li>
           <li v-for="id of myGoldenIds">
             <div class="bee-cont" @click="selectedGoldenId=id;showGBeePopUp=true">
