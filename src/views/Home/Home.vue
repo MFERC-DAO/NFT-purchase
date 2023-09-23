@@ -7,23 +7,48 @@
          <video autoplay muted loop playsinline id="video"><source src="@/assets/video/vdieo_01.mp4" type="video/mp4"></video>
          <div class="video-bg" v-show="!loaded"></div>
        </div>
-        <button class="btn-mint fx-align" @click="showMintPopUp=true">
-          <div class="mint-text">
-            <p>1,000,000 $Mferc</p>
-            <div class="fx-align">
-              <h5>MINT</h5>
+       <!-- mint板块,写倒计时时，隐藏了，去掉class即可显示 -->
+        <div class="fn-hide">
+          <button class="btn-mint fx-align" @click="showMintPopUp=true">
+            <div class="mint-text">
+              <p>1,000,000 $Mferc</p>
+              <div class="fx-align">
+                <h5>MINT</h5>
+              </div>
             </div>
+          </button>
+          <div class="num-cont fx-align gold-gradient-text">
+            <span class="f-b">{{ totalSupply }}</span>/6666
           </div>
-        </button>
-        <div class="num-cont fx-align gold-gradient-text">
-          <span class="f-b">{{ totalSupply }}</span>/6666
+          <div class="fx-align gold-gradient-text">
+            <p>
+              当前剩余{{ pendingGolden }}可mint
+            </p>
+          </div>
+          <div class="tips fx-align"><i class="icon-i"></i><span @click="showExplainPopUp=true">金蜂NFT说明书</span></div>
         </div>
-        <div class="fx-align gold-gradient-text">
-          <p>
-            当前剩余{{ pendingGolden }}可mint
-          </p>
+        <!-- 倒计时 -->
+        <div class="countdown-cont">
+          <h2>距离发行还有:</h2>
+          <ul class="fx fx-x-center">
+            <li>
+              <div class="countdown-num fx-align">07</div>
+              <h4>天</h4>
+            </li>
+            <li>
+              <div class="countdown-num fx-align">11</div>
+              <h4>小时</h4>
+            </li>
+            <li>
+              <div class="countdown-num fx-align">50</div>
+              <h4>分</h4>
+            </li>
+            <li>
+              <div class="countdown-num fx-align">06</div>
+              <h4>秒</h4>
+            </li>
+          </ul>
         </div>
-        <div class="tips fx-align"><i class="icon-i"></i><span @click="showExplainPopUp=true">金蜂NFT说明书</span></div>
       </section>
     </article>
     <!-- mint弹层 -->
