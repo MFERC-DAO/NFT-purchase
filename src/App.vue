@@ -1,32 +1,55 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <transition name="fade" mode="out-in">
+      <router-view ></router-view>
+    </transition>
+    <AlertPop :show.sync="showAlertPop">
+      <template v-slot:title>
+        <div>{{ alertTitle }}</div>
+      </template>
+      <div>{{ alertContent }}</div>
+    </AlertPop>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { setupNetwork, chainChanged } from '@/utils/web3';
+import { mapState } from 'vuex';
+import { getBalance } from '@/utils/asset'
+import { ethers } from 'ethers';
+import { MFERC } from './config';
+import AlertPop from '@/components/AlertPop'
 
-nav {
-  padding: 30px;
+export default {
+  name: 'App',
+  computed: {
+    ...mapState('web3', ['account']),
+    ...mapState(['showAlertPop', 'alertTitle', 'alertContent'])
+  },
+  components: {
+    AlertPop,
+  },
+  data() {
+    return {
+      timeinterval: null
+    }
+  },
+  mounted () {
+    setupNetwork().catch(e => {
+      console.error('connect fail:', e)
+    });
+    chainChanged().catch();
+    this.timeinterval = setInterval(() => {
+      if (ethers.utils.isAddress(this.account) && ethers.utils.isAddress(MFERC)) {
+        getBalance(this.account, MFERC).then(balance => {
+          this.$store.commit('asset/saveMfercBalance', balance)
+        })
+      }
+    }, 3000);
+  },
 }
+</script>
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style lang="scss">
+	@import "assets/css/base.scss";
 </style>
