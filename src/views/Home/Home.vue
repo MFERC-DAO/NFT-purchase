@@ -31,20 +31,20 @@
         <div class="countdown-cont">
           <h2>距离发行还有:</h2>
           <ul class="fx fx-x-center">
-            <li>
-              <div class="countdown-num fx-align">07</div>
+            <li v-show="day > 0">
+              <div class="countdown-num fx-align">{{ prefixInteger(day, 2) }}</div>
               <h4>天</h4>
             </li>
             <li>
-              <div class="countdown-num fx-align">11</div>
+              <div class="countdown-num fx-align">{{ prefixInteger(hour, 2) }}</div>
               <h4>小时</h4>
             </li>
             <li>
-              <div class="countdown-num fx-align">50</div>
+              <div class="countdown-num fx-align">{{ prefixInteger(minute, 2) }}</div>
               <h4>分</h4>
             </li>
             <li>
-              <div class="countdown-num fx-align">06</div>
+              <div class="countdown-num fx-align">{{ prefixInteger(second, 2) }}</div>
               <h4>秒</h4>
             </li>
           </ul>
@@ -113,7 +113,7 @@
         <div class="btn-close" @click="showExplainPopUp=false"></div>
       </div>
     </PopUp>
-    <Footer></Footer>
+    <!-- <Footer></Footer> -->
   </div>
 </template>
 
@@ -150,7 +150,13 @@ export default {
       mintedNftUri: '',
       mintedId: 0,
       mintBtn: '',
-      beeVideo: null
+      beeVideo: null,
+      startTime: 1696766400,// 2023/10/8 08:00,
+      interval: null,
+      day: 0,
+      hour: 0,
+      minute: 0,
+      second: 0
     }
   },
   computed: {
@@ -176,7 +182,7 @@ export default {
       }
       this.mintBtn = 'Mint'
       return 5 // can mint
-    }
+    },
   },
   watch: {
     account(newValue, oldValue) {
@@ -260,8 +266,18 @@ export default {
     this.beeVideo = document.getElementById('video');
     this.beeVideo.ondurationchange= () => {
       this.loaded = true
-    }
+    },
+    this.interval = window.setInterval(() => {
+      const now = parseInt(new Date().getTime() / 1000)
+      this.day = parseInt((this.startTime - now) / 86400)
+      this.hour = parseInt((this.startTime - now) % 86400 / 3600)
+      this.minute = parseInt((this.startTime - now) % 3600 / 60)
+      this.second = parseInt((this.startTime - now) % 60)
+    }, 1000)
   },
+  distroy() {
+    window.clearInterval(this.interval);
+  }
 }
 </script>
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
   <header class="fx fx-y-center fx-x-between">
     <div class="logo-cont" @click="gotoOfficial"></div>
     <!-- Conect Wallet -->
-    <div class="btn-connect" @click="connect">{{ showingAddress }}</div>
+    <!-- <div class="btn-connect" @click="connect">{{ showingAddress }}</div> -->
   </header>
 </template>
 
@@ -35,11 +35,11 @@ export default {
     },
   },
   mounted () {
-    accountChanged(() => {
-        this.$router.go(0)
-    }).catch()
-    getAccounts(true).then(wallet => {
-    }).catch();
+    // accountChanged(() => {
+    //     this.$router.go(0)
+    // }).catch()
+    // getAccounts(true).then(wallet => {
+    // }).catch();
   },
 }
 </script>

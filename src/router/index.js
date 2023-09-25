@@ -18,19 +18,20 @@ const router = new Router({
       name: 'index',
       path: '/index',
       component: Home
-    }, {
-      name: 'BeeSilver',
-      path: '/beeSilver',
-      component: BeeSilver
-    }, {
-      name: 'MyNFT',
-      path: '/myNFT',
-      component: MyNFT
-    },{
-      name: 'BeePurple',
-      path: '/beePurple',
-      component: BeePurple
     },
+    //  {
+    //   name: 'BeeSilver',
+    //   path: '/beeSilver',
+    //   component: BeeSilver
+    // }, {
+    //   name: 'MyNFT',
+    //   path: '/myNFT',
+    //   component: MyNFT
+    // },{
+    //   name: 'BeePurple',
+    //   path: '/beePurple',
+    //   component: BeePurple
+    // },
     {
       path: '*',
       redirect: '/index'
