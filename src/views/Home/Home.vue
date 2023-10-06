@@ -8,7 +8,7 @@
          <div class="video-bg" v-show="!loaded"></div>
        </div>
        <!-- mint板块,写倒计时时，隐藏了，去掉class即可显示 -->
-        <div class="fn-hide">
+        <div v-if="started">
           <button class="btn-mint fx-align" @click="showMintPopUp=true">
             <div class="mint-text">
               <p>1,000,000 $Mferc</p>
@@ -28,7 +28,7 @@
           <div class="tips fx-align"><i class="icon-i"></i><span @click="showExplainPopUp=true">金蜂NFT说明书</span></div>
         </div>
         <!-- 倒计时 -->
-        <div class="countdown-cont">
+        <div v-else class="countdown-cont">
           <h2>距离发行还有:</h2>
           <ul class="fx fx-x-center">
             <li v-show="day > 0">
@@ -113,7 +113,7 @@
         <div class="btn-close" @click="showExplainPopUp=false"></div>
       </div>
     </PopUp>
-    <!-- <Footer></Footer> -->
+    <Footer v-if="started"></Footer>
   </div>
 </template>
 
@@ -124,7 +124,7 @@ import PopUp from '@/components/PopUp'
 import { getTotalSupply, getPendingGoldenBeeCount, mintGoldenBee } from '@/utils/nft'
 import { approve, getApprovement } from '@/utils/asset'
 import { mapState } from 'vuex'
-import { Arbitrum, MFERC } from '@/config'
+import { Arbitrum, MFERC, startTime } from '@/config'
 import { BaseUrl, BeeContracts } from '@/nft-config'
 import { ethers } from 'ethers'
 import { setupNetwork } from '@/utils/web3'
@@ -151,7 +151,7 @@ export default {
       mintedId: 0,
       mintBtn: '',
       beeVideo: null,
-      startTime: 1696766400,// 2023/10/8 08:00,
+      startTime,
       interval: null,
       day: 0,
       hour: 0,
@@ -183,6 +183,9 @@ export default {
       this.mintBtn = 'Mint'
       return 5 // can mint
     },
+    started() {
+      return new Date().getTime() > (this.startTime * 1000)
+    }
   },
   watch: {
     account(newValue, oldValue) {

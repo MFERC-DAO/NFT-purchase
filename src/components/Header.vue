@@ -2,7 +2,7 @@
   <header class="fx fx-y-center fx-x-between">
     <div class="logo-cont" @click="gotoOfficial"></div>
     <!-- Conect Wallet -->
-    <!-- <div class="btn-connect" @click="connect">{{ showingAddress }}</div> -->
+    <div v-if="started" class="btn-connect" @click="connect">{{ showingAddress }}</div>
   </header>
 </template>
 
@@ -10,7 +10,7 @@
 import { setupNetwork } from '@/utils/web3'
 import { accountChanged, getAccounts } from '@/utils/account'
 import { mapState } from 'vuex'
-import { Arbitrum } from '@/config'
+import { Arbitrum, startTime } from '@/config'
 
 export default {
   name: 'Header',
@@ -24,6 +24,9 @@ export default {
         return this.account.slice(0, 6) + '...' + this.account.slice(-6)
       }
       return 'Connect Wallet'
+    },
+    started() {
+      return new Date().getTime() > (startTime * 1000)
     }
   },
   methods: {
@@ -35,11 +38,13 @@ export default {
     },
   },
   mounted () {
-    // accountChanged(() => {
-    //     this.$router.go(0)
-    // }).catch()
-    // getAccounts(true).then(wallet => {
-    // }).catch();
+    if (this.started) {
+      accountChanged(() => {
+          this.$router.go(0)
+      }).catch()
+      getAccounts(true).then(wallet => {
+      }).catch();
+    }
   },
 }
 </script>

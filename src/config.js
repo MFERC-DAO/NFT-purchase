@@ -22,3 +22,4 @@ export const MFERC = "0xDB78c8B524Aa2D836Cb8C2868Be01A14b7E13863"; // test
 
 export const CHAIN_ID = 42161
 
+export const startTime = 1696766400; // start at 2023-10-08 20:00
