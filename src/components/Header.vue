@@ -26,6 +26,7 @@ export default {
       return 'Connect Wallet'
     },
     started() {
+      return true
       return new Date().getTime() > (startTime * 1000)
     }
   },
