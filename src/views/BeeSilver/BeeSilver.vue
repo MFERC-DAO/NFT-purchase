@@ -195,6 +195,16 @@ export default {
       }
     },
     updateInfo() {
+      // get total supply
+      getTotalSupply('black').then(supply => {
+        this.totalSupply = supply
+      }).catch()
+
+      // getMintedBlackBeeIds
+      getMintedBlackBeeIds().then(ids => {
+        this.$store.commit('nft/saveMintedBlackBeeIds', ids)
+      }).catch()
+      
       if (!ethers.utils.isAddress(this.account)) return;
       // get approve
       getApprovement(this.account, MFERC, BeeContracts.black).then(res => {
@@ -205,15 +215,6 @@ export default {
         const { inWhiteList, updateTime, hasMinted, expirationDay } = res
         this.$store.commit('nft/saveBlackWhitelistOk', inWhiteList && ((new Date().getTime() / 1000) - updateTime < expirationDay));
         this.$store.commit('nft/saveHasMintedBlack', hasMinted)
-      }).catch()
-      // get total supply
-      getTotalSupply('black').then(supply => {
-        this.totalSupply = supply
-      }).catch()
-
-      // getMintedBlackBeeIds
-      getMintedBlackBeeIds().then(ids => {
-        this.$store.commit('nft/saveMintedBlackBeeIds', ids)
       }).catch()
     },
     async btnClick() {

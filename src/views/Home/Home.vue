@@ -208,11 +208,6 @@ export default {
       }
     },
     async updateUserData() {
-      if (!ethers.utils.isAddress(this.account)) return;
-      // get approve
-      getApprovement(this.account, MFERC, BeeContracts.golden).then(res => {
-        this.$store.commit('nft/saveGoldenAllownce', res)
-      }).catch()
       // getPendingGoldenBeeCount
       getPendingGoldenBeeCount().then(res => {
         if (res > 0) {
@@ -225,6 +220,11 @@ export default {
         this.totalSupply = supply
       })
       .catch();
+      if (!ethers.utils.isAddress(this.account)) return;
+      // get approve
+      getApprovement(this.account, MFERC, BeeContracts.golden).then(res => {
+        this.$store.commit('nft/saveGoldenAllownce', res)
+      }).catch()
     },
     async mint() {
       try{
