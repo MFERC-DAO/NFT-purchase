@@ -18,7 +18,7 @@ export const Arbitrum = {
   }
 }
 
-export const MFERC = "0xDB78c8B524Aa2D836Cb8C2868Be01A14b7E13863"; // test
+export const MFERC = "0xB4ee30dE6BF7e8F9eFBFcC9715021144DEFDe96F";
 
 export const CHAIN_ID = 42161
 

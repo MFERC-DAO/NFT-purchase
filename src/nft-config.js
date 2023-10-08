@@ -1,7 +1,7 @@
 
 export const BeeContracts = {
-    'black': "0x7Bc2E3A31Cb25A4E0CbA7E12E651e617e43198e3", // test
-    'golden': '0xa4f1bfDF8da3C0A9007C3DD132f4E922d602339E', // test
+    'black': "0xA13fbf207640ABBfb3E1E529c960Eb266e19dBcd",
+    'golden': '0x93992776E6F916186e378fB94422ECB732f84e75', // test
     'purple': ''
 }
 
