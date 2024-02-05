@@ -184,7 +184,7 @@ export default {
       return 5 // can mint
     },
     started() {
-      return true 
+      return true // started
       return new Date().getTime() > (this.startTime * 1000)
     }
   },
